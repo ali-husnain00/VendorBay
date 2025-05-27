@@ -25,25 +25,40 @@
     gap: 50px;
 }
 
-.navlinks a {
-    text-decoration: none;
-    color: #333333;
-    position: relative;
+.navlinks li {
+    list-style: none;
 }
 
-.active::before{
+.navlinks .navlink a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #333;
+    text-decoration: none;
+    position: relative;
+    font-weight: 500;
+}
+
+.active::before {
     content: "";
     height: 3px;
     width: 70%;
     background-color: #FFD700;
     position: absolute;
-    bottom: -5px;
+    bottom: -10px;
     left: 0;
+}
+
+.login-cont a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .login-btn {
     background-color: #1E90FF;
-    color: white;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -52,11 +67,29 @@
     font-size: 16px;
 }
 
-.login-btn li{
-    color: white;
-    list-style: none;
-}
-
 .login-btn:hover {
     background-color: #1c7ed6;
+}
+
+select{
+    padding: 10px 15px;
+    background-color: #1E90FF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+select option{
+    cursor: pointer;
+    color: white;
+}
+
+.hide{
+    display: none;
+}
+
+.show{
+    display: block;
 }

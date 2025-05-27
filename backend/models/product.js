@@ -25,6 +25,10 @@ const productSchema = new mongoose.Schema({
     trim: true,
     lowercase: true,
   },
+  isFeatured:{
+    type:Boolean,
+    default:false
+  },
   stock: {
     type: Number,
     default: 0,

@@ -7,6 +7,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import cors from "cors";
 import user from './models/user.js';
+import verifyToken from './middlewares/verifyToken.js';
 
 dotenv.config();
 connectDB();
@@ -62,13 +63,30 @@ app.post("/login", async (req, res) =>{
 
         const token = jwt.sign({id: existingUser._id}, process.env.SECRET_KEY, {expiresIn: "24h"});
 
-        res.cookie("token", token, {httpOnly:true, sameSite: "strict"});
+        res.cookie("token", token, {httpOnly:true});
         res.status(200).send("User Logged In Successfully!")
 
     } catch (error) {
         res.status(500).send("An error occured while login "+error);
     }
 })
+
+app.get("/getLoggedInUser", verifyToken, async (req, res) => {
+  const id = req.user.id; 
+
+  try {
+    const existingUser = await user.findById(id); 
+    if (!existingUser) {
+      return res.status(404).send("User not found: Unauthorized");
+    }
+
+    res.status(200).send(existingUser);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal server error");
+  }
+});
+
 
 app.post("/logout", (req, res) =>{
     res.clearCookie("token", {httpOnly:true, sameSite: "strict"});

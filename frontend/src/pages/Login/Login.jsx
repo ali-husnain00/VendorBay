@@ -1,9 +1,60 @@
-import React from 'react'
+import React, { useContext, useState } from 'react';
+import './Login.css';
+import { Link, useNavigate } from 'react-router-dom';
+import { context } from '../../components/Context/Context';
 
 const Login = () => {
-  return (
-    <div>Login</div>
-  )
-}
 
-export default Login
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const {getLoggedInUser, user} = useContext(context);
+    const navigate = useNavigate()
+
+    const handleLogin = async (e) =>{
+      e.preventDefault();
+
+    try {
+
+      const res = await fetch("http://localhost:3000/login",{
+        method:"POST",
+        headers:{
+          "Content-Type": "application/json"
+        },
+        credentials:"include",
+        body:JSON.stringify({email, password})
+      })
+
+      if(res.ok){
+        setEmail("");
+        setPassword("");
+        alert("User LoggedIn Successfully!");
+        getLoggedInUser();
+        navigate("/")
+      }
+
+      else{
+        alert("An error occured while Login")
+      }
+      
+    } catch (error) {
+      console.log(error);
+    }
+    }
+
+  return (
+    <div className="login">
+      <div className="login-container">
+      <h2>Welcome Back to VendorBay</h2>
+      <form>
+        <input type="email" value={email} onChange={(e) =>setEmail(e.target.value)} placeholder="Email" required />
+        <input type="password" value={password} onChange={(e) =>setPassword(e.target.value)} placeholder="Password" required />
+        <button type="submit" onClick={handleLogin}>Login</button>
+        <p>Don't have an account? <Link to="/register">Register</Link></p>
+      </form>
+    </div>
+    </div>
+  );
+};
+
+export default Login;
