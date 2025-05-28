@@ -1,0 +1,70 @@
+:root {
+  --color-primary: #1E90FF;      
+  --color-secondary: #FF6F61;   
+  --color-accent: #FFD700;        
+  --color-background: #F5F5F5;    
+  --color-text: #333333;        
+}
+
+.application-submitted {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 100px);
+  background-color: var(--color-background);
+  padding: 2rem;
+}
+
+.confirmation-box {
+  background-color: white;
+  padding: 3rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(30, 144, 255, 0.2);
+  max-width: 600px;
+  text-align: center;
+  animation: fadeInUp 0.8s ease;
+}
+
+.check-icon {
+  font-size: 4rem;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+}
+
+.confirmation-box h2 {
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+}
+
+.confirmation-box p {
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+.highlight {
+  margin-top: 1.5rem;
+  font-weight: bold;
+  color: var(--color-secondary);
+}
+
+.back-to-home-btn button{
+  background-color: var(--color-secondary);
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-weight: 500;
+  border-radius: 5px;
+  margin-top: 15px;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -2,6 +2,8 @@ import React, { useContext, useState } from 'react';
 import './Login.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { context } from '../../components/Context/Context';
+import { toast } from 'react-toastify';
+import Loading from '../../components/Loading/Loading';
 
 const Login = () => {
 
@@ -9,9 +11,12 @@ const Login = () => {
     const [password, setPassword] = useState("");
 
     const {getLoggedInUser, user} = useContext(context);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+
+    const [loading, setLoading] = useState(false)
 
     const handleLogin = async (e) =>{
+      setLoading(true)
       e.preventDefault();
 
     try {
@@ -28,18 +33,25 @@ const Login = () => {
       if(res.ok){
         setEmail("");
         setPassword("");
-        alert("User LoggedIn Successfully!");
+        toast.success("User LoggedIn Successfully!");
         getLoggedInUser();
         navigate("/")
       }
 
       else{
-        alert("An error occured while Login")
+        toast.error("An error occured while Login")
       }
       
     } catch (error) {
       console.log(error);
     }
+    finally{
+      setLoading(false)
+    }
+    }
+
+    if(loading){
+      return <Loading/>
     }
 
   return (

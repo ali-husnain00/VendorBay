@@ -10,11 +10,18 @@ import Navbar from './components/Navbar/Navbar';
 import AllProducts from './pages/AllProducts/AllProducts';
 import Profile from './pages/Profile/Profile';
 import Dashboard from './pages/Dashboard/Dashboard';
+import Loading from './components/Loading/Loading';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import BecomeSeller from './pages/BecomeSeller/BecomeSeller';
+import Notifications from './pages/Notifications/Notifications';
+
 
 const App = () => {
   return (
     <>
     <Navbar/>
+    <ToastContainer/>
     <Routes>
       <Route path='/' element = {<Home/>} />
       <Route path='/about' element = {<About/>} />
@@ -25,6 +32,8 @@ const App = () => {
       <Route path='/products' element = {<AllProducts/>} />
       <Route path='/profile' element = {<Profile/>} />
       <Route path='/dashboard' element = {<Dashboard/>} />
+      <Route path='becomeSeller' element = {<BecomeSeller/>} />
+      <Route path='/notifications' element = {<Notifications/>} />
     </Routes>
     </>
   )

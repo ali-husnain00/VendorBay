@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
 import './Register.css';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
+import { toast } from 'react-toastify';
+import Loading from '../../components/Loading/Loading';
 
 const Register = () => {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate()
 
   const handleRegister = async (e) =>{
+    setLoading(true)
     e.preventDefault();
-
     try {
 
       const res = await fetch("http://localhost:3000/register",{
@@ -25,16 +30,24 @@ const Register = () => {
         setName("");
         setEmail("");
         setPassword("");
-        alert("User Registered Successfully!");
+        toast.success("User Registered Successfully!");
+        navigate("/login ")
       }
 
       else{
-        alert("An error occured while registering user")
+        toast.error("An error occured while registering user")
       }
       
     } catch (error) {
       console.log(error);
     }
+    finally{
+      setLoading(false)
+    }
+  }
+
+  if(loading){
+    return <Loading/>
   }
 
   return (
