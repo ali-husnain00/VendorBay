@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router';
+import { Route, Routes, useLocation } from 'react-router';
 import Home from './pages/Home/Home';
 import About from './pages/About/About';
 import Contact from './pages/Contact/Contact';
@@ -18,9 +18,14 @@ import Notifications from './pages/Notifications/Notifications';
 
 
 const App = () => {
+
+  const location = useLocation();
+
+  const hideLayout = location.pathname === "/dashboard";
+
   return (
     <>
-    <Navbar/>
+    {!hideLayout && <Navbar/>}
     <ToastContainer/>
     <Routes>
       <Route path='/' element = {<Home/>} />

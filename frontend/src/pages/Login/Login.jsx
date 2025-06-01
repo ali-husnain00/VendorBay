@@ -10,7 +10,7 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const {getLoggedInUser, user} = useContext(context);
+    const {getLoggedInUser, user, getSellerInfo, getSellerStats} = useContext(context);
     const navigate = useNavigate();
 
     const [loading, setLoading] = useState(false)
@@ -35,6 +35,8 @@ const Login = () => {
         setPassword("");
         toast.success("User LoggedIn Successfully!");
         getLoggedInUser();
+        getSellerInfo();
+        getSellerStats();
         navigate("/")
       }
 

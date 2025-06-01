@@ -1,0 +1,108 @@
+.overview {
+  padding: 40px;
+  background-color: #f9fbfc;
+  width: 100%;
+  min-height: 100%;
+  height: auto;
+}
+
+.overview h2 {
+  font-size: 2rem;
+  color: #0ea7e4;
+  margin-bottom: 0.5rem;
+}
+
+.subheading {
+  font-size: 1rem;
+  color: #6c757d;
+  margin-bottom: 2rem;
+}
+
+.stats-cards {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  width: 320px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+}
+
+.stat-icon {
+  font-size: 3rem;
+}
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.stat-title {
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.stat-value {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.recent-orders {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.recent-orders h3 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.recent-orders table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.recent-orders th,
+.recent-orders td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.status {
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: white;
+}
+
+.status.processing {
+  background-color: #ffaf3e;
+}
+
+.status.delivered {
+  background-color: #28a745;
+}
+
+.status.shipped {
+  background-color: #17a2b8;
+}

@@ -7,7 +7,7 @@ import Loading from '../../components/Loading/Loading';
 import { toast } from 'react-toastify';
 
 const Profile = () => {
-  const { user, getLoggedInUser} = useContext(context);
+  const { user, getLoggedInUser, BASE_URL} = useContext(context);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -23,7 +23,7 @@ const Profile = () => {
     formData.append("image", file); 
 
     try {
-      const res = await fetch("http://localhost:3000/changeProfileImage", {
+      const res = await fetch(`${BASE_URL}/changeProfileImage`, {
         method: "PUT",
         credentials: "include",
         body: formData,
@@ -46,7 +46,7 @@ const Profile = () => {
     e.preventDefault();
     setLoading(true)
     try {
-       const res = await fetch("http://localhost:3000/updateUser", {
+       const res = await fetch(`${BASE_URL}/updateUser`, {
         method: "PUT",
         headers:{
           "Content-Type": "application/json"
@@ -86,7 +86,7 @@ const Profile = () => {
       <div className="user-info-side">
         <div className="user-info">
           <label className="profile-pic-label">
-            <img src={`http://localhost:3000/uploads/${user.profilePic}`} className="profile-pic" />
+            <img src={`${BASE_URL}/uploads/${user.profilePic}`} className="profile-pic" />
             <div className="camera-icon">
               <FaCamera />
             </div>
