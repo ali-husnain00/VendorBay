@@ -1,14 +1,10 @@
 import multer from "multer";
 
-const storage = multer.diskStorage({
-    destination: function(req, file, cb){
-        cb(null, "uploads/")
-    },
-    filename:function(req, file, cb){
-        const uniquefn = Date.now() + "-" + file.originalname;
-        cb(null, uniquefn)
-    }
+const storage = multer.memoryStorage();
+
+const upload = multer({
+    storage:storage,
+    limits:{fileSize: 5 * 1024 *1024}
 })
 
-const upload = multer({storage:storage});
 export default upload

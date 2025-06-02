@@ -39,7 +39,7 @@ const Dashboard = () => {
     <div className="dashboard-container">
       <aside className="sidebar">
         <div className="seller-info">
-          <img src={`${BASE_URL}/uploads/${seller.storeBanner}`} />
+          <img src={`${BASE_URL}/uploads/${seller.storeBanner}` } loading = "lazy" />
           <h3>{seller.storeName}</h3>
         </div>
         <nav className="nav-menu">

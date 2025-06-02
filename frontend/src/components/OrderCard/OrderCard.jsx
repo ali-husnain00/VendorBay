@@ -5,7 +5,7 @@ const OrderCard = () => {
   return (
     <div className="order-card">
             <div className="order-header">
-              <img src="/product-sample.jpg" alt="product" className="order-img" />
+              <img src="/product-sample.jpg" alt="product" loading='lazy' className="order-img" />
               <div className='order-info'>
                 <div><span className="order-status processing">Processing</span></div>
                 <h4>Wireless Headphones</h4>

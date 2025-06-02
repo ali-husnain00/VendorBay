@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import "./Navbar.css"
 import { AiOutlineHome } from "react-icons/ai";
-import { FiInfo, FiPhone, FiShoppingCart, FiUser} from "react-icons/fi";
+import { FiBox, FiPhone, FiShoppingCart, FiUser} from "react-icons/fi";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { useState } from 'react'
@@ -41,12 +41,17 @@ const Navbar = () => {
   return (
     <div className='navbar'>
       <div className="logo">
-        <Link to="/"><img src="/src/assets/images/VB_LOGO.png" alt='Logo' /></Link>
+        <Link to="/"><img src="/src/assets/images/VB_LOGO.png" loading='lazy' alt='Logo' /></Link>
       </div>
       <ul className="navlinks">
         <li className="navlink">
           <Link to="/" className={location.pathname === "/" ? "active" : ""} >
             <AiOutlineHome size={20} /> Home
+          </Link>
+        </li>
+        <li className="navlink">
+          <Link to="/products" className={location.pathname === "/products" ? "active" : ""} >
+            <FiBox size={20} /> All Porducts
           </Link>
         </li>
         <li className="navlink">

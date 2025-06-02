@@ -12,6 +12,7 @@ import upload from './middlewares/multer.js';
 import sellerApplication from './models/sellerApplication.js';
 import product from './models/product.js';
 import order from './models/order.js';
+import compressImage from './middlewares/sharp.js';
 
 dotenv.config();
 connectDB();
@@ -98,7 +99,7 @@ app.post("/logout", (req, res) =>{
     res.status(200).send("User Logged out successfully!");
 })
 
-app.put("/changeProfileImage", verifyToken, upload.single("image"), async (req, res) =>{
+app.put("/changeProfileImage", verifyToken, upload.single("image"), compressImage, async (req, res) =>{
 
     const id = req.user.id;
 
@@ -153,7 +154,7 @@ app.put("/updateUser", verifyToken, async (req, res) =>{
 })
 
 
-app.post("/becomeSeller", verifyToken, upload.single("storeBanner"), async (req, res) => {
+app.post("/becomeSeller", verifyToken, upload.single("storeBanner"), compressImage, async (req, res) => {
   const id = req.user.id;
   const { storeName, contactNumber, storeAddress, storeDescription } = req.body;
 
@@ -206,7 +207,7 @@ app.get("/getSellerInfo", verifyToken, async (req, res) =>{
     }
 })
 
-app.post("/seller/addProduct", verifyToken, upload.single("image"), async (req, res) => {
+app.post("/seller/addProduct", verifyToken, upload.single("image"), compressImage, async (req, res) => {
   const userId = req.user.id;
   const { title, desc, category, price, stock } = req.body;
 
@@ -299,6 +300,25 @@ app.get("/seller/dashboard-stats", verifyToken, async (req, res) =>{
   }
 })
 
+app.get("/latestProducts", async (req, res) => {
+  try {
+    const latestProducts = await product.find({}).limit(6);
+    res.status(200).send(latestProducts);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("An error occurred while getting latest products");
+  }
+});
+
+app.get("/featuredProducts", async (req, res) =>{
+  try {
+    const featuredProducts = await product.find({isFeatured:true}).limit(6);
+    res.status(200).send(featuredProducts)
+  } catch (error) {
+     console.error(error);
+    res.status(500).send("An error occurred while getting featured products");
+  }
+})
 
 const PORT = process.env.PORT;
 app.listen(PORT, () =>{

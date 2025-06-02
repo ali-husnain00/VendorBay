@@ -86,7 +86,7 @@ const Profile = () => {
       <div className="user-info-side">
         <div className="user-info">
           <label className="profile-pic-label">
-            <img src={`${BASE_URL}/uploads/${user.profilePic}`} className="profile-pic" />
+            <img src={`${BASE_URL}/uploads/${user.profilePic}`} loading='lazy' className="profile-pic" />
             <div className="camera-icon">
               <FaCamera />
             </div>

@@ -45,7 +45,7 @@ const Banner = () => {
           className={`slide ${index === current ? "active-dot" : ""}`}
           key={index}
         >
-          <img src={slide.image} alt={slide.heading} />
+          <img src={slide.image} loading='lazy' alt={slide.heading} />
           <div className="overlay">
             <h1>{slide.heading}</h1>
             <p>{slide.subtext}</p>

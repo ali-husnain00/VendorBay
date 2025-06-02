@@ -21,7 +21,7 @@ const SellerProducts = () => {
                 <p className='category'>{prod.category}</p>
                 <p className={`stock ${prod.stock > 0 ? "in-stock" : "out-of-stock"}`}>{prod.stock > 0 ? "In stock" : "Out of stock"}</p>
               </div>
-                <img src={`${BASE_URL}/uploads/${prod.image}`} />
+                <img src={`${BASE_URL}/uploads/${prod.image}`} loading='lazy' />
               <h4>{prod.title.length > 50 ? prod.title.slice(0,50) + "..." : prod.title}</h4>
               <p className='prod-price'>Rs {prod.price}</p>
               <div className="action-btns">
