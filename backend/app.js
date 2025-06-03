@@ -320,6 +320,25 @@ app.get("/featuredProducts", async (req, res) =>{
   }
 })
 
+app.get("/getProducts", async (req, res) =>{
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 12;
+
+  try {
+    const totProd = await product.countDocuments();
+    const allProd = await product.find({}).skip((page - 1) * limit).limit(limit);
+    const totalPages = Math.ceil(totProd/limit);
+
+    res.status(200).send({
+      page,
+      allProd,
+      totalPages,
+    })
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+})
+
 const PORT = process.env.PORT;
 app.listen(PORT, () =>{
     console.log(`Server is running on port ${PORT}`)

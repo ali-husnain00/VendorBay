@@ -29,7 +29,7 @@
 }
 
 .product-card {
-  min-width: 250px;
+  width: 260px;
   min-height: max-content;
   height: auto;
   padding: 20px;
