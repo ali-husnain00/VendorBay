@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export const context = createContext(null);
 
@@ -6,8 +7,10 @@ const ContextProvider = ({ children }) => {
 
     const [user, setUser] = useState(null);
     const [seller, setSeller] = useState(null)
+    const [products, setProducts] = useState([]);
     const [sellerStats, setSellerStats] = useState({})
     const [sellerProducts, setSellerProducts] = useState([])
+    const [cartProduct, setCartProducts] = useState([])
     const [loading, setLoading] = useState(false)
 
     const BASE_URL = import.meta.env.VITE_API_URL;
@@ -94,6 +97,30 @@ const ContextProvider = ({ children }) => {
         }
     }
 
+    const handleAddToCart = async (id) =>{
+        setLoading(true)
+        try {
+            const res = await fetch(`${BASE_URL}/addtocart/product/${id}`,{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                credentials:"include"
+            })
+            if(res.ok){
+                toast.success("Product added to cart sucessfully!");
+            }
+            else{
+                toast.error("Product is already in cart!")
+            }
+        } catch (error) {
+            console.log("An error occured while adding product to cart"+ error)
+        }
+        finally{
+            setLoading(false)
+        }
+    }
+
     useEffect(() => {
         getLoggedInUser();
         getSellerInfo();
@@ -118,7 +145,10 @@ const ContextProvider = ({ children }) => {
         setLoading,
         seller,
         sellerStats,
-        getSellerStats
+        getSellerStats,
+        products,
+        setProducts,
+        handleAddToCart
     }
 
     return (

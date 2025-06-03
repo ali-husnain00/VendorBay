@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import {useNavigate} from "react-router-dom"
 import "./AllProducts.css"
 import SearchBar from '../../components/SearchBar/SearchBar'
 import { context } from '../../components/Context/Context';
@@ -6,11 +7,11 @@ import Loading from '../../components/Loading/Loading';
 
 const AllProducts = () => {
 
-  const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const navigate = useNavigate()
 
-  const { BASE_URL, loading, setLoading } = useContext(context)
+  const { BASE_URL, loading, setLoading, products, setProducts, handleAddToCart } = useContext(context)
 
   const getProducts = async () => {
     setLoading(true)
@@ -35,6 +36,11 @@ const AllProducts = () => {
     }
   }
 
+  const handleAddToCartClick = (e, id) =>{
+    e.stopPropagation();
+    handleAddToCart(id);
+  }
+
   useEffect(() => {
     getProducts()
   }, [page])
@@ -50,12 +56,12 @@ const AllProducts = () => {
         <div className="prod-cont">
           {
             products.map((prod) => (
-              <div key={prod._id} className="product-card">
+              <div key={prod._id} className="product-card" onClick={() =>navigate(`/product/details/${prod._id}`)}>
                 <img src={`${BASE_URL}/uploads/${prod.image}`} className="product-image" loading='lazy' />
                 <div className="product-info">
                   <h3>{prod.title.length > 30 ? prod.title.slice(0, 30) + "..." : prod.title}</h3>
                   <p className="price">Rs {prod.price}</p>
-                  <button className="add-to-cart-btn">Add to Cart</button>
+                  <button className="add-to-cart-btn" onClick={(e) =>handleAddToCartClick(e, prod._id)}>Add to Cart</button>
                 </div>
               </div>
             ))

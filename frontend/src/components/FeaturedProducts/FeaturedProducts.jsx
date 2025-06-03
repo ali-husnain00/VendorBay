@@ -5,11 +5,13 @@ import { useContext } from 'react'
 import { context } from '../Context/Context'
 import Loading from '../Loading/Loading'
 import { useEffect } from 'react'
+import { useNavigate } from 'react-router'
 
 const FeaturedProducts = () => {
 
   const [featuredProducts, setFeaturedProducts] = useState([])
-  const {BASE_URL, loading, setLoading} = useContext(context)
+  const {BASE_URL, loading, setLoading, handleAddToCart} = useContext(context)
+  const navigate = useNavigate()
 
   const getLatestProducts = async () => {
     setLoading(true)
@@ -45,12 +47,12 @@ const FeaturedProducts = () => {
       <h2>Featured Products</h2>
       <div className="products-container">
         {featuredProducts.map(product => (
-          <div key={product._id} className="product-card" tabIndex={0}>
+          <div key={product._id} className="product-card" tabIndex={0} onClick={() => navigate(`/product/details/${product._id}`)}>
             <img src={`${BASE_URL}/uploads/${product.image}`} className="product-image" loading='lazy' />
             <div className="product-info">
               <h3>{product.title.length > 30 ? product.title.slice(0,30) + "..." : product.title}</h3>
               <p className="price">Rs {product.price}</p>
-              <button className="add-to-cart-btn">Add to Cart</button>
+              <button className="add-to-cart-btn" onClick={(e) =>{e.stopPropagation(); handleAddToCart(product._id)}}>Add to Cart</button>
             </div>
 
           </div>

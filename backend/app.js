@@ -339,6 +339,57 @@ app.get("/getProducts", async (req, res) =>{
   }
 })
 
+app.get('/product/:id', async (req, res) => {
+  try {
+    const prod = await product.findById(req.params.id);
+    res.status(200).send(prod);
+  } catch (error) {
+    res.status(500).send("Error fetching product");
+  }
+});
+
+app.post("/addtocart/product/:id", verifyToken, async (req, res) =>{
+  const id = req.params.id;
+  const userId = req.user.id;
+
+  try {
+    const existingUser = await user.findById(userId);
+    if(!existingUser){
+      return res.status(403).send("User not logged in! Please login.")
+    }
+
+    const prod = await product.findById(id);
+    if(!prod){
+      return res.status(404).send("Product not found")
+    }
+
+    const isAlreadyInCart = existingUser.cart.find(p => p.product.toString() === id);
+    if(isAlreadyInCart){
+      return res.status(400).send({message:"Product is already on cart"})
+    }
+    await existingUser.cart.push({product:id, quantity:1});
+    await existingUser.save();
+
+    res.status(200).send("Product added to cart successfully!")
+  } catch (error) {
+    res.status(500).send("An error occured while adding product to cart")
+    console.log(error)
+  }
+})
+
+app.get("/getCartProducts", verifyToken, async (req, res) =>{
+  const id = req.user.id;
+  try {
+    const existingUser = await user.findById(id).populate("cart.product");
+    if(!existingUser){
+      return res.status(404).send("Please login to get your cart products");
+    }
+    res.status(200).send(existingUser.cart)
+  } catch (error) {
+    res.status(500).send("An error occured while getting cart products")
+  }
+})
+
 const PORT = process.env.PORT;
 app.listen(PORT, () =>{
     console.log(`Server is running on port ${PORT}`)

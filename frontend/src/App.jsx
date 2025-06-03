@@ -17,6 +17,7 @@ const Profile = lazy(() => import('./pages/Profile/Profile'));
 const Dashboard = lazy(() => import('./pages/Dashboard/Dashboard'));
 const BecomeSeller = lazy(() => import('./pages/BecomeSeller/BecomeSeller'));
 const Notifications = lazy(() => import('./pages/Notifications/Notifications'));
+const ProductDetails = lazy(() => import('./pages/ProductDetails/ProductDetails'))
 
 const App = () => {
   const location = useLocation();
@@ -40,6 +41,7 @@ const App = () => {
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/becomeSeller' element={<BecomeSeller />} />
           <Route path='/notifications' element={<Notifications />} />
+          <Route path='/product/details/:id' element = {<ProductDetails/>} />
         </Routes>
       </Suspense>
       <Footer/>

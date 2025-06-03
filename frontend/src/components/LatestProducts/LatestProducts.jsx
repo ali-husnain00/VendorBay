@@ -5,11 +5,13 @@ import { useContext } from 'react';
 import { context } from '../Context/Context';
 import { useEffect } from 'react';
 import Loading from '../Loading/Loading';
+import { useNavigate } from 'react-router';
 
 const LatestProducts = () => {
 
   const [latestProducts, setLatestProducts] = useState([]);
   const { BASE_URL, loading, setLoading } = useContext(context)
+  const navigate = useNavigate()
 
   const getLatestProducts = async () => {
     setLoading(true)
@@ -45,7 +47,7 @@ const LatestProducts = () => {
       <h2>Latest Products</h2>
         <div className="products-container">
         {latestProducts.map(product => (
-          <div key={product._id} className="product-card" tabIndex={0}>
+          <div key={product._id} className="product-card" tabIndex={0} onClick={() => navigate(`/product/details/${product._id}`)}>
             <img src={`${BASE_URL}/uploads/${product.image}`} className="product-image" loading='lazy' />
             <div className="product-info">
               <h3>{product.title.length > 30 ? product.title.slice(0,30) + "..." : product.title}</h3>
