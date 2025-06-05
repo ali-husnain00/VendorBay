@@ -109,10 +109,11 @@ const ContextProvider = ({ children }) => {
                 body: JSON.stringify({qty})
             })
             if(res.ok){
-                toast.success("Product added to cart sucessfully!");
+                const data = await res.json();
+                toast.success(data.message);
             }
             else{
-                toast.error("Product is already in cart!")
+                toast.warning("Login to add product to cart!")
             }
         } catch (error) {
             console.log("An error occured while adding product to cart"+ error)

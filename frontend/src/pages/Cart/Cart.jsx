@@ -120,7 +120,7 @@ const Cart = () => {
                 <div className="remove-icon" title='Remove from cart' onClick={() =>handleRemoveProduct(item?.product?._id)}>x</div>
                 <img
                   src={`${BASE_URL}/uploads/${item?.product?.image}`}
-                  className="cart-image"
+                  className="cart-image" loading='lazy'
                 />
                 <div className="cart-details">
                   <h3>{item.product.title.length > 50 ? item.product.title.slice(0,50) + "..." : item.product.title}</h3>

@@ -38,7 +38,7 @@ const orderSchema = new mongoose.Schema({
     required: true,
     min: 0,
   },
-  paymentStatus: {
+  paymentMethod: {
     type: String,
     enum: ["pending", "paid", "failed", "Cash on delivery"],
     default: "pending",
