@@ -55,11 +55,6 @@ const Navbar = () => {
           </Link>
         </li>
         <li className="navlink">
-          <Link to="/contact" className={location.pathname === "/contact" ? "active" : ""}>
-            <FiPhone size={20} /> Contact
-          </Link>
-        </li>
-        <li className="navlink">
           <Link to="/cart" className={location.pathname === "/cart" ? "active" : ""} >
             <FiShoppingCart size={20} /> Cart
           </Link>

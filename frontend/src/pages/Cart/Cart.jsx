@@ -7,6 +7,7 @@ import './Cart.css';
 
 const Cart = () => {
   const [cartProducts, setCartProducts] = useState([]);
+  const [total, setTotal] = useState(0);
   const navigate = useNavigate();
   const { BASE_URL, loading, setLoading, user } = useContext(context);
 
@@ -41,36 +42,114 @@ const Cart = () => {
     }
   };
 
+  const handleRemoveProduct = async (id) =>{
+    setLoading(true)
+    try {
+      const res = await fetch(`${BASE_URL}/product/removefromcart/${id}`,{
+        method:"DELETE",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        credentials:"include"
+      })
+      if(res.ok){
+        toast.success("Product removed from cart successfull!")
+        getCartProducts();
+      }
+      else{
+        toast.error("An error occured while removing product");
+      }
+    } catch (error) {
+      console.log(error)
+    }
+    finally{
+      setLoading(false)
+    }
+  }
+
+  const handleClearCart = async () =>{
+    setLoading(true)
+    try {
+      const res = await fetch(`${BASE_URL}/clearCart`,{
+        method:"POST",
+        headers:{
+          'Content-Type':"application/json"
+        },
+        credentials:"include"
+      })
+      if(res.ok){
+        toast.success("Cart cleared successfully!")
+        getCartProducts()
+      }
+      else{
+        toast.error("An error occured while clearing the cart")
+      }
+    } catch (error) {
+      console.log(error)
+    }
+    finally{
+      setLoading(false)
+    }
+  }
+
   useEffect(() => {
     getCartProducts();
   }, [user]);
 
-  if (loading) {
-    return <Loading />;
-  }
+  useEffect(() => {
+   const totalPrice = cartProducts.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
+    setTotal(totalPrice);
+  }, [cartProducts]);
+
+  const handleCheckout = () => {
+    toast.success("Proceeding to checkout...");
+    navigate("/checkout"); 
+  };
+
+  if (loading || !user) return <Loading />;
 
   return (
     <div className="cart">
-      <h2>Your Cart 🛒</h2>
+      <h2 className="cart-heading">Your Cart 🛒</h2>
+
       {cartProducts.length > 0 ? (
-        <div className="cart-list">
-          {cartProducts.map((item) => (
-            <div key={item.product._id} className="cart-item">
-              <img
-                src={`${BASE_URL}/uploads/${item.product.image}`}
-                alt={item.product.title}
-                className="cart-image"
-              />
-              <div className="cart-details">
-                <h3>{item.product.title}</h3>
-                <p>Price: Rs {item.product.price}</p>
-                <p>Quantity: {item.quantity}</p>
+        <div className="cart-main">
+          <div className="cart-items">
+            {cartProducts.map((item) => (
+              <div key={item?.product?._id} className="cart-item">
+                <div className="remove-icon" title='Remove from cart' onClick={() =>handleRemoveProduct(item?.product?._id)}>x</div>
+                <img
+                  src={`${BASE_URL}/uploads/${item?.product?.image}`}
+                  className="cart-image"
+                />
+                <div className="cart-details">
+                  <h3>{item.product.title.length > 50 ? item.product.title.slice(0,50) + "..." : item.product.title}</h3>
+                  <p className="price">Rs {item.product.price}</p>
+                  <p className="category">Category: {item.product.category}</p>
+                  <div className="quant-control">
+                    <span>Quantity:{item.quantity} </span>
+                  </div>
+                </div>
               </div>
+            ))}
+          </div>
+
+          <div className="cart-summary">
+            <h3>Order Summary</h3>
+            <p>Subtotal: Rs {total}</p>
+            <p>Shipping: Rs 100</p>
+            <hr />
+            <h4>Total: Rs {total + 100}</h4>
+            <div className="cart-action-btns">
+              <button className="checkout-btn" onClick={handleCheckout}>
+              Checkout 🔒
+            </button>
+            <button onClick={handleClearCart} className="clear-cart-btn">Clear Cart 🗑️</button>
             </div>
-          ))}
+          </div>
         </div>
       ) : (
-        <p>Your cart is empty.</p>
+        <p className="empty-cart-msg">Your cart is empty.</p>
       )}
     </div>
   );

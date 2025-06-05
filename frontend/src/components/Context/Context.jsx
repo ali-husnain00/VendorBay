@@ -97,7 +97,7 @@ const ContextProvider = ({ children }) => {
         }
     }
 
-    const handleAddToCart = async (id) =>{
+    const handleAddToCart = async (id, qty = 1) =>{
         setLoading(true)
         try {
             const res = await fetch(`${BASE_URL}/addtocart/product/${id}`,{
@@ -105,7 +105,8 @@ const ContextProvider = ({ children }) => {
                 headers:{
                     "Content-Type":"application/json"
                 },
-                credentials:"include"
+                credentials:"include",
+                body: JSON.stringify({qty})
             })
             if(res.ok){
                 toast.success("Product added to cart sucessfully!");

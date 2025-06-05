@@ -71,7 +71,7 @@ const ProductDetails = () => {
                             <input type="number" value={qty} readOnly />
                             <button onClick={increase}>+</button>
                         </div>
-                        <button className="btn add" onClick={() =>handleAddToCart(product._id)}>Add to Cart</button>
+                        <button className="btn add" onClick={() =>handleAddToCart(product._id, qty)}>Add to Cart</button>
                     </div>
                 </div>
             </div>

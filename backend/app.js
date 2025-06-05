@@ -351,6 +351,7 @@ app.get('/product/:id', async (req, res) => {
 app.post("/addtocart/product/:id", verifyToken, async (req, res) =>{
   const id = req.params.id;
   const userId = req.user.id;
+  const {qty} = req.body;
 
   try {
     const existingUser = await user.findById(userId);
@@ -367,7 +368,7 @@ app.post("/addtocart/product/:id", verifyToken, async (req, res) =>{
     if(isAlreadyInCart){
       return res.status(400).send({message:"Product is already on cart"})
     }
-    await existingUser.cart.push({product:id, quantity:1});
+    await existingUser.cart.push({product: prod, quantity: parseInt(qty)});
     await existingUser.save();
 
     res.status(200).send("Product added to cart successfully!")
@@ -389,6 +390,49 @@ app.get("/getCartProducts", verifyToken, async (req, res) =>{
     res.status(500).send("An error occured while getting cart products")
   }
 })
+
+app.delete("/product/removefromcart/:id", verifyToken, async (req, res) =>{
+  const id = req.params.id;
+  const userId = req.user.id;
+  try {
+    const existingUser = await user.findById(userId);
+    if(!existingUser){
+      return res.status(404).send("User not found!")
+    }
+
+    const prod = await product.findById(id);
+    if(!prod){
+      return res.status(404).send("Product not found")
+    }
+
+    existingUser.cart = existingUser.cart.filter((item) => item.product._id.toString() !== id)
+    existingUser.save();
+
+    res.status(200).send("Product removed from cart successfully!")
+  } catch (error) {
+    res.status(500).send("An error occured while removing product from cart!")
+    console.log(error)
+  }
+})
+
+app.post("/clearCart", verifyToken, async (req, res) => {
+  const userId = req.user.id;
+
+  try {
+    const existingUser = await user.findById(userId);
+    if (!existingUser) {
+      return res.status(404).send("User not found!");
+    }
+    existingUser.cart = [];
+    await existingUser.save();
+
+    res.status(200).send("Cart cleared successfully!");
+  } catch (error) {
+    console.error("Error clearing cart:", error);
+    res.status(500).send("An error occurred while clearing the cart.");
+  }
+});
+
 
 const PORT = process.env.PORT;
 app.listen(PORT, () =>{
