@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 
 export const context = createContext(null);
@@ -6,12 +7,16 @@ export const context = createContext(null);
 const ContextProvider = ({ children }) => {
 
     const [user, setUser] = useState(null);
+    const [userOrders, setUserOrders] = useState([])
     const [seller, setSeller] = useState(null)
     const [products, setProducts] = useState([]);
     const [sellerStats, setSellerStats] = useState({})
     const [sellerProducts, setSellerProducts] = useState([])
-    const [cartProduct, setCartProducts] = useState([])
+    const [searchProduct, setSearchedProduct] = useState([]);
+    const [searchVal, setSearchVal] = useState("")
     const [loading, setLoading] = useState(false)
+
+    const navigate = useNavigate()
 
     const BASE_URL = import.meta.env.VITE_API_URL;
 
@@ -56,6 +61,29 @@ const ContextProvider = ({ children }) => {
         }
     }
 
+    const getUserOrders = async () => {
+        setLoading(true)
+        try {
+            const res = await fetch(`${BASE_URL}/getUserOrders`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: "include"
+            })
+            if (res.ok) {
+                const data = await res.json()
+                setUserOrders(data)
+            }
+        } catch (error) {
+            console.log("An error occured while getting user orders" + error)
+        }
+        finally {
+            setLoading(false)
+        }
+    }
+
+
     const getSellerInfo = async () => {
         setLoading(true)
         try {
@@ -78,47 +106,70 @@ const ContextProvider = ({ children }) => {
     const getSellerStats = async () => {
         setLoading(true)
         try {
-            const res = await fetch(`${BASE_URL}/seller/dashboard-stats`,{
+            const res = await fetch(`${BASE_URL}/seller/dashboard-stats`, {
                 method: "GET",
-                headers:{
+                headers: {
                     "Content-Type": "application/json"
                 },
                 credentials: "include"
             })
-            if(res.ok){
+            if (res.ok) {
                 const data = await res.json()
                 setSellerStats(data)
             }
         } catch (error) {
             console.log(error)
         }
-        finally{
+        finally {
             setLoading(false)
         }
     }
 
-    const handleAddToCart = async (id, qty = 1) =>{
+    const handleAddToCart = async (id, qty = 1) => {
         setLoading(true)
         try {
-            const res = await fetch(`${BASE_URL}/addtocart/product/${id}`,{
-                method:"POST",
-                headers:{
-                    "Content-Type":"application/json"
+            const res = await fetch(`${BASE_URL}/addtocart/product/${id}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
                 },
-                credentials:"include",
-                body: JSON.stringify({qty})
+                credentials: "include",
+                body: JSON.stringify({ qty })
             })
-            if(res.ok){
+            if (res.ok) {
                 const data = await res.json();
                 toast.success(data.message);
             }
-            else{
+            else {
                 toast.warning("Login to add product to cart!")
             }
         } catch (error) {
-            console.log("An error occured while adding product to cart"+ error)
+            console.log("An error occured while adding product to cart" + error)
         }
-        finally{
+        finally {
+            setLoading(false)
+        }
+    }
+
+    const handleSearchedProduct = async () => {
+        setLoading(true)
+        try {
+            const res = await fetch(`${BASE_URL}/getSearchedProduct/?search=${searchVal}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            if (res.ok) {
+                const data = await res.json();
+                setSearchedProduct(data);
+                setSearchVal('')
+                navigate("/searchResults")
+            }
+        } catch (error) {
+            console.log("An error occured while getting searched products" + error)
+        }
+        finally {
             setLoading(false)
         }
     }
@@ -137,6 +188,8 @@ const ContextProvider = ({ children }) => {
 
     const value = {
         getLoggedInUser,
+        getUserOrders,
+        userOrders,
         user,
         setUser,
         BASE_URL,
@@ -150,7 +203,11 @@ const ContextProvider = ({ children }) => {
         getSellerStats,
         products,
         setProducts,
-        handleAddToCart
+        handleAddToCart,
+        searchVal,
+        setSearchVal,
+        handleSearchedProduct,
+        searchProduct
     }
 
     return (

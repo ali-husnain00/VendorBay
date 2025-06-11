@@ -7,8 +7,7 @@ import Loading from '../../components/Loading/Loading';
 import { toast } from 'react-toastify';
 
 const Profile = () => {
-  const { user, getLoggedInUser, BASE_URL} = useContext(context);
-
+  const { user, getLoggedInUser, BASE_URL, getUserOrders, userOrders } = useContext(context);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [image, setImage] = useState(null)
@@ -20,7 +19,7 @@ const Profile = () => {
     setImage(file);
 
     const formData = new FormData();
-    formData.append("image", file); 
+    formData.append("image", file);
 
     try {
       const res = await fetch(`${BASE_URL}/changeProfileImage`, {
@@ -37,22 +36,22 @@ const Profile = () => {
       toast.error("An error occured while updating the image")
       console.log("An error occurred while updating the image: " + error);
     }
-    finally{
+    finally {
       setLoading(false)
     }
   };
 
-  const handleUpdateUser = async (e) =>{
+  const handleUpdateUser = async (e) => {
     e.preventDefault();
     setLoading(true)
     try {
-       const res = await fetch(`${BASE_URL}/updateUser`, {
+      const res = await fetch(`${BASE_URL}/updateUser`, {
         method: "PUT",
-        headers:{
+        headers: {
           "Content-Type": "application/json"
         },
         credentials: "include",
-        body: JSON.stringify({name, email}),
+        body: JSON.stringify({ name, email }),
       });
 
       if (res.ok) {
@@ -63,22 +62,22 @@ const Profile = () => {
       toast.error("An error occured while updating the info")
       console.log("An error occurred while updating the user: " + error);
     }
-    finally{
+    finally {
       setLoading(false)
     }
   }
-
 
   useEffect(() => {
     if (user) {
       setName(user.username);
       setEmail(user.email);
     }
+    getUserOrders()
   }, [user]);
 
-  
+
   if (!user || loading) {
-    return <Loading/>
+    return <Loading />
   }
 
   return (
@@ -128,12 +127,18 @@ const Profile = () => {
       <div className="orders-side">
         <h3>My Orders</h3>
         <ul className="orders-container">
-          <OrderCard />
-          <OrderCard />
-          <OrderCard />
-          <OrderCard />
+          {
+            userOrders.length > 0 ? (
+              userOrders.map((order) => (
+                <OrderCard key={order._id} order={order} />
+              ))
+            ) : (
+              <p>No orders yet.</p>
+            )
+          }
         </ul>
       </div>
+
     </div>
   );
 };

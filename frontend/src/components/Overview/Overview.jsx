@@ -5,7 +5,7 @@ import Loading from '../Loading/Loading';
 
 const Overview = () => {
 
-  const {user, sellerStats, loading} = useContext(context)
+  const { user, sellerStats, loading } = useContext(context)
 
   const stats = [
     { title: 'Total Products', value: sellerStats.totalProducts, icon: '📦' },
@@ -14,8 +14,8 @@ const Overview = () => {
     { title: 'Pending Orders', value: sellerStats.pendOrders, icon: '📄' },
   ];
 
-  if(loading || !sellerStats || !sellerStats.recentOrders){
-    return <Loading/>
+  if (loading || !sellerStats || !sellerStats.recentOrders) {
+    return <Loading />
   }
 
   return (
@@ -39,32 +39,34 @@ const Overview = () => {
         <h3>Recent Orders</h3>
         {
           sellerStats.recentOrders.length > 0 ?
-          <table>
-          <thead>
-            <tr>
-              <th>Order ID</th>
-              <th>Product</th>
-              <th>Status</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-            sellerStats.recentOrders.map(order => (
-              <tr key={order.id}>
-                <td>{order.id}</td>
-                <td>{order.prod}</td>
-                <td><span className={`status ${order.status.toLowerCase()}`}>{order.status}</span></td>
-                <td>{order.date}</td>
-              </tr>
-            ))
-          }
-          </tbody>
-        </table>
-        :
-        <p>No recent orders</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Product</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  sellerStats.recentOrders.map(order => (
+                    order.prod.map((product, index) => (
+                      <tr key={`${order.id}-${index}`}>
+                        <td>{order.id}</td>
+                        <td>{product.title.length > 20 ? product.title.slice(0, 20) + "..." : product.title}</td>
+                        <td><span className={`status ${order.status.toLowerCase()}`}>{order.status}</span></td>
+                        <td>{order.date}</td>
+                      </tr>
+                    ))
+                  ))
+                }
+              </tbody>
+            </table>
+            :
+            <p>No recent orders</p>
         }
-        
+
       </div>
     </div>
   );

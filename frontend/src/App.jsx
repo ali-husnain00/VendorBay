@@ -19,6 +19,7 @@ const BecomeSeller = lazy(() => import('./pages/BecomeSeller/BecomeSeller'));
 const Notifications = lazy(() => import('./pages/Notifications/Notifications'));
 const ProductDetails = lazy(() => import('./pages/ProductDetails/ProductDetails'))
 const Checkout = lazy(() => import('./pages/Checkout/Checkout'));
+const SearchResults = lazy(() => import('./pages/SearchResults/SearchResults'));
 
 const App = () => {
   const location = useLocation();
@@ -44,6 +45,7 @@ const App = () => {
           <Route path='/notifications' element={<Notifications />} />
           <Route path='/product/details/:id' element = {<ProductDetails/>} />
           <Route path='/checkout' element = {<Checkout/>} />
+          <Route path='/searchResults' element = {<SearchResults/>} />
         </Routes>
       </Suspense>
       <Footer/>

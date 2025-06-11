@@ -27,24 +27,6 @@ const userSchema = new mongoose.Schema({
     enum: ["user", "seller", "admin"],
     default: "user",
   },
-  notifications: [
-    {
-      message: String,
-      seen: {
-        type: Boolean,
-        default: false,
-      },
-      createdAt: {
-        type: Date,
-        default: Date.now,
-      },
-      type: {
-        type: String,
-        enum: ["application", "order", "admin"],
-        default: "admin",
-      },
-    },
-  ],
   cart: [
     {
       product: {

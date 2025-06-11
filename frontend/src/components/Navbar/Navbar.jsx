@@ -14,8 +14,6 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate()
 
-  const unseenCount = user?.notifications?.filter(n => !n.seen).length || 0;
-
   const handleLogout = async () => {
     try {
       const res = await fetch("http://localhost:3000/logout", {
@@ -94,16 +92,6 @@ const Navbar = () => {
             <li className='login-cont'>
               <Link to="/login" className={`login-btn`}>
                 <FiUser size={20} /> Login
-              </Link>
-            </li>
-          )
-        }
-        {
-          user && (
-            <li className="navlink notif-icon">
-              <Link to="/notifications">
-                <IoMdNotificationsOutline size={24} />
-                {unseenCount > 0 && <span className="notif-badge">{unseenCount}</span>}
               </Link>
             </li>
           )

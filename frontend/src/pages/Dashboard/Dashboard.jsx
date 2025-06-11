@@ -6,6 +6,7 @@ import SellerProducts from '../../components/SellerProducts/SellerProducts';
 import { context } from '../../components/Context/Context';
 import Loading from '../../components/Loading/Loading';
 import Overview from '../../components/Overview/Overview';
+import SellerOrders from '../../components/SellerOrder/SellerOrders';
 
 const Dashboard = () => {
   const [activeView, setActiveView] = useState('overview');
@@ -21,9 +22,7 @@ const Dashboard = () => {
       case 'my-products':
         return <SellerProducts/>
       case 'orders':
-        return <div className="view">All orders placed on your products.</div>;
-      case 'notifications':
-        return <div className="view">You have 2 new notifications 📬</div>;
+        return <SellerOrders/>
       case 'profile':
         return <div className="view">Update your seller profile.</div>;
       default:
@@ -52,7 +51,6 @@ const Dashboard = () => {
             </div>
           </div>
           <button onClick={() => setActiveView('orders')} className={`nav-link ${activeView === 'orders' ? 'act' : ''}`}>🛒 Orders</button>
-          <button onClick={() => setActiveView('notifications')} className={`nav-link ${activeView === 'notifications' ? 'act' : ''}`}>🔔 Notifications</button>
           <button onClick={() =>navigate("/profile")} className={`nav-link ${activeView === 'profile' ? 'act' : ''}`}>👤 Profile</button>
         </nav>
       </aside>

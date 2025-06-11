@@ -1,17 +1,17 @@
 .profile {
     width: 100%;
-    min-height: calc(100vh - 100px);
-    height: auto;
+    height: calc(100vh - 100px);
     padding: 40px 100px;
     display: flex;
-    gap: 40px;
+    gap: 100px;
+    overflow: hidden;
 }
 
 .user-info-side {
     display: flex;
     gap: 40px;
     flex-direction: column;
-    width: 40%;
+    width: max-content;
     max-height: calc(100vh - 100px);
 }
 
@@ -110,6 +110,15 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    overflow-y: auto;
+    padding: 20px;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.orders-side::-webkit-scrollbar{
+    display: none;
 }
 
 .orders-side h3 {
@@ -118,7 +127,6 @@
 }
 
 .orders-container {
-    display: flex;
-    gap: 40px;
-    flex-wrap: wrap;
+    column-count:2;
+    column-gap: 20px;
 }

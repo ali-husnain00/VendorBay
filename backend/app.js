@@ -301,49 +301,57 @@ app.get("/seller/dashboard-stats", verifyToken, async (req, res) => {
       stock: { $gt: 0 },
     });
 
-    const totalSale = 0;
+    let totalSale = 0;
     const sellerOrders = await order
       .find({
         "products.seller": seller._id,
-        paymentStatus: "paid",
+        paymentMethod: { $in: ["Cash on delivery", "paid"] },
       })
       .populate("products.product");
 
     sellerOrders.forEach((order) => {
       order.products.forEach((p) => {
-        if (p.seller.toString() === seller._id) {
-          const productPrice = p.product.price;
-          totalSale = productPrice * p.quantity || 0;
+        if (p.seller.toString() === seller._id.toString()) {
+          const productPrice = p.product?.price || 0;
+          totalSale += productPrice * p.quantity;
         }
       });
     });
 
     const pendingOrders = sellerOrders.filter(
-      (order) => order.orderStatus === "pending"
+      (order) => order.orderStatus === "processing"
     );
-    const recentOrders = sellerOrders.slice(0, 3).map((order) => ({
-      id: order._id,
-      prod:
-        order.products.find((p) => p.product?.seller?.toString() === seller._id)
-          ?.product?.title || "N/A",
-      status: order.orderStatus,
-      date: order.orderedAt.toISOString().split("T")[0],
-    }));
 
-    res
-      .status(200)
-      .send({
-        totalProducts,
-        productsInStock,
-        totalSale,
-        pendOrders: pendingOrders.length,
-        recentOrders: recentOrders || [],
-      });
+    const recentOrders = sellerOrders.slice(0, 3).map((order) => {
+      const matchingProducts = order.products.filter(
+        (p) => p.seller.toString() === seller._id.toString()
+      );
+
+      return {
+        id: order._id,
+        prod: matchingProducts.map((p) => ({
+          title: p.product.title,
+          quantity: p.quantity,
+          price: p.product.price,
+        })),
+        status: order.orderStatus,
+        date: new Date(order.orderedAt).toISOString().split("T")[0],
+      };
+    });
+
+    res.status(200).send({
+      totalProducts,
+      productsInStock,
+      totalSale,
+      pendOrders: pendingOrders.length,
+      recentOrders,
+    });
   } catch (error) {
-    res.status(500).send("An error occured while getting the stats of seller");
+    res.status(500).send("An error occurred while getting the stats of seller");
     console.log(error);
   }
 });
+
 
 app.get("/latestProducts", async (req, res) => {
   try {
@@ -534,7 +542,7 @@ app.post("/orderNow", verifyToken, async (req, res) => {
         city,
       },
       totalAmount: parseInt(totalAmount),
-      paymentStatus: paymentMethod === "Cash on delivery" ? "Cash on delivery" : "pending",
+      paymentMethod: paymentMethod === "Cash on delivery" ? "Cash on delivery" : "pending",
       orderStatus: "processing",
     });
 
@@ -547,6 +555,106 @@ app.post("/orderNow", verifyToken, async (req, res) => {
   }
 });
 
+app.get("/getUserOrders", verifyToken, async (req, res) => {
+  const userId = req.user.id;
+  try {
+    const existingUser = await user.findById(userId);
+    if (!existingUser) {
+      return res.status(404).send({ message: "Unauthorized: User not found" });
+    }
+
+    const userOrders = await order.find({ user: userId }).populate("products.product");
+    
+    if (userOrders.length === 0) {
+      return res.status(404).send({ message: "No orders found" });
+    }
+
+    res.status(200).send(userOrders);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: "An error occurred while sending user orders from backend" });
+  }
+});
+
+app.get("/getSearchedProduct", async (req, res) => {
+  const search = req.query.search || "";
+
+  try {
+    const searchRegex = new RegExp(search, "i");
+
+    const allProd = await product.find({ title: searchRegex });
+
+    res.status(200).send(allProd);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("An error occurred while getting searched products");
+  }
+});
+
+app.get("/getSellerOrders", verifyToken, async (req, res) => {
+  const sellerId = req.user.id;
+
+  try {
+    const allOrders = await order.find({ "products.seller": sellerId })
+      .populate("products.product");
+
+    const sellerOrders = allOrders.map((ord) => {
+      const filteredProducts = ord.products.filter(
+        (item) => item.seller.toString() === sellerId
+      );
+
+      return {
+        _id: ord._id,
+        createdAt: ord.createdAt,
+        paymentMethod:ord.paymentMethod,
+        shippingAddress:ord.shippingAddress,
+        status: ord.orderStatus,
+        products: filteredProducts,
+        total: filteredProducts.reduce((acc, item) => acc + item.product.price * item.quantity, 0),
+      };
+    });
+
+    res.status(200).send(sellerOrders);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Failed to get seller orders");
+  }
+});
+
+app.put("/updateOrderStatus/:orderId", verifyToken, async (req, res) => {
+  const { orderId } = req.params;
+  const { status } = req.body;
+
+  try {
+    const foundOrder = await order.findById(orderId);
+    if (!foundOrder) return res.status(404).send("Order not found");
+
+    foundOrder.orderStatus = status;
+    await foundOrder.save();
+
+    res.status(200).send("Order status updated successfully!");
+  } catch (err) {
+    console.error("Error updating order status:", err);
+    res.status(500).send("Internal server error");
+  }
+});
+
+app.put("/cancelOrder/:orderId", verifyToken, async (req, res) => {
+  const { orderId } = req.params;
+
+  try {
+    const foundOrder = await order.findById(orderId);
+    if (!foundOrder) return res.status(404).send("Order not found");
+
+    foundOrder.orderStatus = "cancelled";
+    await foundOrder.save();
+
+    res.status(200).send("Order cancelled successfully!");
+  } catch (err) {
+    console.error("Error updating order status:", err);
+    res.status(500).send("Internal server error");
+  }
+});
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
