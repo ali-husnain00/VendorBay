@@ -13,6 +13,7 @@ import sellerApplication from "./models/sellerApplication.js";
 import product from "./models/product.js";
 import order from "./models/order.js";
 import compressImage from "./middlewares/sharp.js";
+import verifyAdmin from "./middlewares/verifyAdmin.js";
 
 dotenv.config();
 connectDB();
@@ -655,6 +656,229 @@ app.put("/cancelOrder/:orderId", verifyToken, async (req, res) => {
     res.status(500).send("Internal server error");
   }
 });
+
+//Admin routes
+app.get("/admin/dashboard", verifyToken, verifyAdmin, async (req, res) => {
+  try {
+    const totalUsers = await user.countDocuments({ role: "user" });
+    const totalSellers = await user.countDocuments({ role: "seller" });
+    const totalOrders = await order.countDocuments();
+    const totalProducts = await product.countDocuments();
+    const totalSalesData = await order.find({ paymentMethod: "Cash on delivery" }).populate("products.product");
+
+    let totalSales = 0;
+    totalSalesData.forEach(order => {
+      order.products.forEach(p => {
+        totalSales += p.product.price * p.quantity;
+      });
+    });
+
+    const recentOrdersRaw = await order.find({})
+      .limit(3)
+      .populate("products.product");
+
+    const recentOrders = recentOrdersRaw.map(order => ({
+      _id: order._id,
+      status: order.orderStatus,
+      date: order.createdAt.toISOString().split("T")[0],
+      total: order.products.reduce((acc, item) => acc + item.product.price * item.quantity, 0),
+      productTitle: order.products[0]?.product?.title || "N/A"
+    }));
+
+    res.status(200).send({
+      totalUsers,
+      totalSellers,
+      totalOrders,
+      totalSales,
+      recentOrders,
+      totalProducts,
+    });
+  } catch (err) {
+    console.error("Error in admin dashboard:", err);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+//Get all users on admin panel
+app.get("/admin/users", verifyToken, verifyAdmin, async (req, res) => {
+  const users = await user.find({ role: "user" });
+  res.status(200).send(users);
+});
+
+//Block user from admin panel
+app.put("/admin/block-user/:id", verifyToken, verifyAdmin, async (req, res) => {
+  await user.findByIdAndUpdate(req.params.id, { isBlocked: true });
+  res.status(200).send("User blocked");
+});
+
+//Unblock user from admin panel
+app.put("/admin/unblock-user/:id", verifyToken, verifyAdmin, async (req, res) => {
+  await user.findByIdAndUpdate(req.params.id, { isBlocked: false });
+  res.status(200).send("User unblocked");
+});
+
+//Delete user from admin panel
+app.delete("/admin/delete-user/:id", verifyToken, verifyAdmin, async (req, res) => {
+  await user.findByIdAndDelete(req.params.id);
+  res.status(200).send("User deleted");
+});
+
+//Update user role from admin panel
+app.put("/admin/update-role/:id", verifyToken, verifyAdmin, async (req, res) =>{
+  const {role} = req.body;
+  await user.findByIdAndUpdate(req.params.id, {role:role});
+  res.status(200).send("User role updated successfully!")
+})
+
+//Get all sellers on admin panel
+app.get("/admin/sellers", verifyToken, verifyAdmin, async (req, res) => {
+  try {
+    const sellers = await user.find({ role: "seller" }).select("-password");
+    const storeInfos = await sellerApplication.find({});
+
+    const sellersWithStoreInfo = sellers.map((seller) => {
+      const matchedStore = storeInfos.find(
+        (store) => store.userId.toString() === seller._id.toString()
+      );
+
+      return {
+        ...seller.toObject(),
+        storeInfo: matchedStore || null, 
+      };
+    });
+
+    res.status(200).json(sellersWithStoreInfo);
+  } catch (error) {
+    console.error("Error fetching sellers:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+app.get("/admin/seller-applications", verifyToken, verifyAdmin, async (req, res) =>{
+  const sellerApp = await sellerApplication.find({status:"pending"});
+  res.status(200).send(sellerApp);
+})
+
+
+app.put("/admin/update-seller/:id", verifyToken, verifyAdmin, async (req, res) => {
+  const { id } = req.params;
+  const { action } = req.body;
+
+  try {
+    const seller = await user.findById(id);
+    if (!seller) return res.status(404).send("Seller not found");
+
+    switch (action) {
+      case "block":
+        seller.isBlocked = true;
+        break;
+      case "unblock":
+        seller.isBlocked = false;
+        break;
+      case "make-user":
+        seller.role = "user";
+        break;
+      case "make-admin":
+        seller.role = "admin";
+        break;
+      default:
+        return res.status(400).send("Invalid action");
+    }
+
+    await seller.save();
+    res.status(200).send("Seller updated successfully");
+  } catch (err) {
+    console.error("Error updating seller:", err);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+
+app.put("/admin/update-seller-application-status/:id", verifyToken, verifyAdmin, async (req, res) => {
+  const { id } = req.params;
+  const { action, userId } = req.body;
+
+  try {
+    const sellerApp = await sellerApplication.findById(id);
+    const seller = await user.findById(userId);
+    if (!sellerApp || !seller) return res.status(404).send("Seller application not found");
+
+    switch (action) {
+      case "approved":
+        sellerApp.status = "approved";
+        seller.role = "seller";
+        break;
+      case "rejected":
+        sellerApp.status = "rejected";
+        break;
+      default:
+        return res.status(400).send("Invalid action");
+    }
+
+    await sellerApp.save();
+    await seller.save();
+    res.status(200).send("Seller application status updated successfully");
+  } catch (err) {
+    console.error("Error updating seller application status:", err);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+//Products on admin panel
+app.get("/admin/products", verifyToken, verifyAdmin, async (req, res) => {
+  try {
+    const products = await product.find({});
+    res.status(200).json(products);
+  } catch (err) {
+    console.error("Error fetching all products:", err);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+app.delete("/admin/delete/product/:id", verifyToken, verifyAdmin, async (req, res) => {
+  try {
+    const prod = await product.findByIdAndDelete(req.params.id);
+    if (!prod) return res.status(404).send("Product not found");
+
+    res.status(200).send("Product deleted successfully");
+  } catch (err) {
+    console.error("Error deleting product:", err);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+app.put("/admin/products/feature/:id", verifyToken, verifyAdmin, async (req, res) => {
+  try {
+    const prod = await product.findById(req.params.id);
+    if (!prod) return res.status(404).send("Product not found");
+
+    prod.isFeatured = !prod.isFeatured;
+    await prod.save();
+
+    res.status(200).json({ isFeatured: prod.isFeatured });
+  } catch (err) {
+    console.error("Error toggling featured status:", err);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+//Get all orders on admin panel
+app.get("/admin/orders", verifyToken, verifyAdmin, async (req, res) => {
+  try {
+    const orders = await order
+      .find()
+      .sort({ createdAt: -1 })
+      .populate("user", "email")
+      .populate("products.product", "title price image")
+      .populate("products.seller", "email");
+
+    res.status(200).json(orders);
+  } catch (error) {
+    console.error("Error fetching admin orders:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {

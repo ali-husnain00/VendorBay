@@ -3,9 +3,11 @@ import './OrderCard.css';
 import { context } from '../Context/Context';
 import { toast } from 'react-toastify';
 import Loading from '../Loading/Loading';
+import { useState } from 'react';
 
 const OrderCard = ({ order }) => {
-  const { BASE_URL, getUserOrders, loading, setLoading } = useContext(context);
+  const { BASE_URL, getUserOrders} = useContext(context);
+  const [loading, setLoading] = useState(false)
 
   const handleCancelOrder = async (orderId) => {
     setLoading(true)

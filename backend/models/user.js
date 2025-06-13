@@ -27,6 +27,10 @@ const userSchema = new mongoose.Schema({
     enum: ["user", "seller", "admin"],
     default: "user",
   },
+  isBlocked:{
+      type:Boolean,
+      default:false
+    },
   cart: [
     {
       product: {

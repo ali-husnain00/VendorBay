@@ -1,0 +1,37 @@
+.admin-orders {
+  padding: 20px;
+  color: #333;
+}
+
+.admin-orders h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: rgb(14, 167, 228);
+}
+
+.orders-table table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #f9f9f9;
+}
+
+.orders-table th, .orders-table td {
+  padding: 12px;
+  border: 1px solid #ccc;
+  text-align: left;
+  vertical-align: top;
+}
+
+.order-product {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.order-product img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  border-radius: 4px;
+}

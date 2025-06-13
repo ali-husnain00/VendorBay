@@ -20,10 +20,11 @@ const Notifications = lazy(() => import('./pages/Notifications/Notifications'));
 const ProductDetails = lazy(() => import('./pages/ProductDetails/ProductDetails'))
 const Checkout = lazy(() => import('./pages/Checkout/Checkout'));
 const SearchResults = lazy(() => import('./pages/SearchResults/SearchResults'));
+const AdminPanel = lazy(() =>import('./pages/AdminPanel/AdminPanel'))
 
 const App = () => {
   const location = useLocation();
-  const hideLayout = location.pathname === "/dashboard";
+  const hideLayout = location.pathname === "/dashboard" || location.pathname === "/admin/dashboard";
 
   return (
     <>
@@ -46,6 +47,7 @@ const App = () => {
           <Route path='/product/details/:id' element = {<ProductDetails/>} />
           <Route path='/checkout' element = {<Checkout/>} />
           <Route path='/searchResults' element = {<SearchResults/>} />
+          <Route path='/admin/dashboard' element = {<AdminPanel/>} />
         </Routes>
       </Suspense>
       <Footer/>

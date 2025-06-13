@@ -69,6 +69,16 @@ const Navbar = () => {
 
         {
           user ? (
+            user.role === "admin" ? (
+              <li>
+                <Link className='admin-btn' to="/admin/dashboard">Admin Panel</Link>
+              </li>
+            ) : null
+          ) : null
+        }
+
+        {
+          user ? (
             <select
               value={
                 location.pathname.includes("/profile") ? "/profile" :

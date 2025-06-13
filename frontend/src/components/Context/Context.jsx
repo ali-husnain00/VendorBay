@@ -152,6 +152,10 @@ const ContextProvider = ({ children }) => {
     }
 
     const handleSearchedProduct = async () => {
+        if(!searchVal || searchVal === null){
+            toast.warning("Please enter something to search..");
+            return;
+        }
         setLoading(true)
         try {
             const res = await fetch(`${BASE_URL}/getSearchedProduct/?search=${searchVal}`, {
