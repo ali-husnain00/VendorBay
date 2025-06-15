@@ -152,3 +152,36 @@ textarea {
   display: block;
   color: #333;
 }
+
+@media (max-width:1300px){
+    .checkout-page{
+        padding: 40px 60px;
+    }
+}
+
+@media (max-width:1024px){
+    .checkout-container{
+        flex-direction: column;
+    }
+
+    .checkout-left, .checkout-right{
+        width: 100%;
+    }
+}
+
+
+@media (max-width:768px){
+    .checkout-page{
+        padding: 40px 30px;
+    }
+    .form-group input{
+        padding: 10px;
+    }
+    .checkout-right, .checkout-left{
+        font-size: 14px;
+    }
+    .place-order-btn{
+        padding: 10px 12px;
+    }
+}
+
