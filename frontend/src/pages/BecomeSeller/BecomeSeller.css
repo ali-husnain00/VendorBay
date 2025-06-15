@@ -12,15 +12,14 @@
   width: 100vw;
   min-height: calc(100vh - 100px);
   background-color: var(--color-background);
-  padding: 40px 20px;
+  padding: 40px 30px;
   gap: 40px;
   justify-content: center;
   align-items: center;
 }
 
 .seller-right {
-  flex: 1;
-  max-width: 500px;
+  width: 560px;
   background: white;
   padding: 30px 35px;
   border-radius: 16px;
@@ -60,6 +59,11 @@
   transition: border-color 0.3s;
 }
 
+.seller-form textarea{
+  resize: none;
+  width: 100%;
+}
+
 .seller-form input:focus,
 .seller-form textarea:focus {
   border-color: var(--color-primary);
@@ -82,4 +86,37 @@
 .seller-form button:hover {
   background-color: #187bcd;
 }
+
+
+@media (max-width:600px){
+  .seller-right{
+    width: 80vw;
+  }
+  .seller-right h2{
+    font-size: 19px;
+  }
+  .seller-right form label{
+    font-size: 14px;
+  }
+}
+
+@media (max-width:450px){
+  .seller-right{
+    padding: 0;
+    background-color: transparent;
+    width: 100%;
+    box-shadow: none;
+  }
+
+  .seller-right h2{
+    margin-bottom: 30px;
+  }
+  
+   .seller-right form button{
+    padding: 10px 12px;
+    font-size: 17px;
+   }
+}
+
+
 

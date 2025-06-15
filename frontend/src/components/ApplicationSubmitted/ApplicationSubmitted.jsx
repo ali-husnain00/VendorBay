@@ -18,7 +18,7 @@ const ApplicationSubmitted = () => {
           Our team is reviewing your information. We’ll notify you once your application is approved or if we need more details.
         </p>
         <p className="highlight">Stay tuned for updates in your notifications!</p>
-        <div className="back-to-home-btn">
+        <div className="back-btn">
           <button onClick={() =>navigate("/")}>Back to home</button>
         </div>
       </div>

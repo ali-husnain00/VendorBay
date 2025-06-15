@@ -15,29 +15,29 @@ const Footer = () => {
           <h4>Shop</h4>
           <ul>
             <li><Link to="/products">All Products</Link></li>
-            <li><Link to="/categories">Categories</Link></li>
-            <li><Link to="/latest">Latest</Link></li>
-            <li><Link to="/offers">Offers</Link></li>
+            <li><Link>Categories</Link></li>
+            <li><Link>Latest</Link></li>
+            <li><Link>Offers</Link></li>
           </ul>
         </div>
 
         <div className="footer-column">
           <h4>Company</h4>
           <ul>
-            <li><Link to="/about">About Us</Link></li>
+            <li><Link>About Us</Link></li>
             <li><Link to="/becomeSeller">Become a Seller</Link></li>
-            <li><Link to="/careers">Careers</Link></li>
-            <li><Link to="/contact">Contact</Link></li>
+            <li><Link>Careers</Link></li>
+            <li><Link>Contact</Link></li>
           </ul>
         </div>
 
         <div className="footer-column">
           <h4>Support</h4>
           <ul>
-            <li><Link to="/help">Help Center</Link></li>
-            <li><Link to="/returns">Returns</Link></li>
-            <li><Link to="/privacy">Privacy Policy</Link></li>
-            <li><Link to="/terms">Terms & Conditions</Link></li>
+            <li><Link>Help Center</Link></li>
+            <li><Link>Returns</Link></li>
+            <li><Link>Privacy Policy</Link></li>
+            <li><Link>Terms & Conditions</Link></li>
           </ul>
         </div>
       </div>

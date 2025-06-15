@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 import ApplicationSubmitted from "../../components/ApplicationSubmitted/ApplicationSubmitted";
 import Loading from "../../components/Loading/Loading";
+import { useContext } from "react";
+import { context } from "../../components/Context/Context";
 
 const BecomeSeller = () => {
     const [storeName, setStoreName] = useState("");
@@ -13,6 +15,8 @@ const BecomeSeller = () => {
     const [storeBanner, setStoreBanner] = useState(null);
     const [submitted, setSubmitted] = useState(false)
     const [loading, setLoading] = useState(false)
+
+    const {BASE_URL} = useContext(context);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -32,7 +36,7 @@ const BecomeSeller = () => {
         formData.append("storeBanner", storeBanner);
 
         try {
-            const res = await fetch("http://localhost:3000/becomeSeller", {
+            const res = await fetch(`${BASE_URL}/becomeSeller`, {
                 method: "POST",
                 credentials: "include",
                 body: formData,
