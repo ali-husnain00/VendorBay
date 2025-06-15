@@ -6,20 +6,48 @@
   --text: #333333;
 }
 
-.dashboard-container {
+.admin-dashboard-container {
   display: flex;
+  width: 100vw;
   min-height: 100vh;
+  height: auto;
   background-color: var(--background);
-  font-family: 'Segoe UI', sans-serif;
+  flex-direction: column;
 }
 
-.sidebar {
-  min-width: 350px;
+.admin-dash-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 90px;
+  padding: 0 40px;
+  background-color: white;
+}
+
+.admin-dash-nav ul li {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.admin-main-container {
+  display: flex;
+}
+
+.admin-sidebar {
   background-color: var(--primary);
   color: white;
   padding: 20px;
-  display: flex;
+  display: none;
   flex-direction: column;
+  position: relative;
+  left: -400px;
+  transition: 0.45s all ease;
 }
 
 .admin-info {
@@ -69,14 +97,14 @@
 }
 
 .main-content {
-  flex: 1;
-  padding: 40px 60px;
-  color: var(--text);
-  background-color: var(--background);
-  overflow-y: auto;
+  width: calc(100vw - 350px);
+  min-height: calc(100vh - 90px);
+  height: auto;
+  padding: 40px;
+  background-color: var(--color-background);
 }
 
-.back-to-home-btn{
+.back-to-home-btn {
   display: flex;
   align-items: center;
   gap: 5px;
@@ -86,6 +114,17 @@
   transition: 0.45s all ease;
 }
 
-.back-to-home-btn:hover{
+.back-to-home-btn:hover {
   color: rgb(243, 243, 243);
 }
+
+.show-asb {
+  min-width: 350px;
+  display: flex;
+  left: 0;
+}
+
+.full-width {
+  width: 100vw;
+}
+

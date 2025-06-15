@@ -1,5 +1,4 @@
 .seller-banner {
-  display: flex;
   align-items: center;
   justify-content: center;
   gap: 4rem;
@@ -50,6 +49,10 @@
   margin-bottom: 80px;
 }
 
+.flex{
+  display: flex;
+}
+
 @keyframes fadeInUp {
   0% {
     transform: translateY(30px);
@@ -62,20 +65,9 @@
   }
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .seller-banner {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .banner-content,
-  .banner-image {
-    max-width: 100%;
-  }
-
-  .banner-image img {
-    margin-top: 1rem;
-    width: 80%;
+@media (max-width:1068px){
+  .seller-banner{
+    display: none;
   }
 }
+

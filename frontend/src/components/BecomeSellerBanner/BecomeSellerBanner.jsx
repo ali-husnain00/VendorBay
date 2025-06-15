@@ -13,7 +13,7 @@ const BecomeSellerBanner = () => {
   };
 
   return (
-    <section className="seller-banner" style={user?.role === "seller" || user?.role === "admin" ? {display:"none"} : {display:"flex"}}>
+    <section className={`seller-banner ${user?.role === "seller" || user?.role === "admin" ? "flex" : ""}`}>
       <div className="banner-content">
         <h2>Start Selling on VendorBay 🚀</h2>
         <p>Join thousands of sellers and grow your business today!</p>

@@ -7,9 +7,12 @@ import { context } from '../../components/Context/Context';
 import Loading from '../../components/Loading/Loading';
 import Overview from '../../components/Overview/Overview';
 import SellerOrders from '../../components/SellerOrder/SellerOrders';
+import { HiMenuAlt1 } from "react-icons/hi";
+import { IoChevronBack } from "react-icons/io5";
 
 const Dashboard = () => {
   const [activeView, setActiveView] = useState('overview');
+  const [activeSideBar, setActiveSideBar] = useState(false)
   const navigate = useNavigate()
   const {seller, BASE_URL, loading} = useContext(context)
 
@@ -36,7 +39,17 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-container">
-      <aside className="sidebar">
+      <nav className='seller-dash-nav'>
+        <ul>
+          <li onClick={() =>navigate("/")}>
+            <IoChevronBack fontSize={30}/>
+            Back to home
+          </li>
+        </ul>
+        <HiMenuAlt1 fontSize={30} cursor="pointer" onClick={() =>setActiveSideBar(!activeSideBar)}/>
+      </nav>
+      <div className="main-container">
+        <aside className={`sidebar ${activeSideBar ? "show-sb" : ""}`} >
         <div className="seller-info">
           <img src={`${BASE_URL}/uploads/${seller.storeBanner}` } loading = "lazy" />
           <h3>{seller.storeName}</h3>
@@ -54,9 +67,10 @@ const Dashboard = () => {
           <button onClick={() =>navigate("/profile")} className={`nav-link ${activeView === 'profile' ? 'act' : ''}`}>👤 Profile</button>
         </nav>
       </aside>
-      <main className="main-content">
+      <main className={`main-content ${!activeSideBar ? "full-width" : ""}`}>
         {renderView()}
       </main>
+      </div>
     </div>
   );
 }
