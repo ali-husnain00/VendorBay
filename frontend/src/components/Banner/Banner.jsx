@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import {useNavigate} from "react-router-dom"
-import "./Banner.css"
+import "./Banner.css";
 
 const slides = [
   {
-    image: "/src/assets/images/image1.webp",
+    image: "/images/image1.webp",
     heading: "Glow Up Your Style",
     subtext: "Discover trending beauty and skincare essentials.",
     btnText: "Shop Now",
   },
   {
-    image: "/src/assets/images/image2.webp",
+    image: "/images/image2.webp",
     heading: "Cook with Confidence",
     subtext: "Top-quality kitchen tools delivered to your door.",
     btnText: "Explore Collection",
   },
   {
-    image: "/src/assets/images/image3.webp",
+    image: "/images/image3.webp",
     heading: "Fast & Secure Delivery",
     subtext: "Your favorite products, shipped with care.",
     btnText: "Start Shopping",

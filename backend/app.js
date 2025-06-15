@@ -14,7 +14,7 @@ app.use(cookieParser());
 app.use("/uploads", express.static("uploads"));
 app.use(
   cors({
-    origin: "https://vendorbay1.netlify.app",
+    origin: "http://localhost:5173",
     credentials: true,
   })
 );

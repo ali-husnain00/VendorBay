@@ -11,14 +11,14 @@ import { toast } from 'react-toastify';
 
 const Navbar = () => {
 
-  const { user, setUser, getLoggedInUser } = useContext(context);
+  const { user, setUser, getLoggedInUser, BASE_URL } = useContext(context);
   const [activeMenu, setActiveMenu] = useState(false);
   const location = useLocation();
   const navigate = useNavigate()
 
   const handleLogout = async () => {
     try {
-      const res = await fetch("http://localhost:3000/logout", {
+      const res = await fetch(`${BASE_URL}/logout`, {
         method: "POST",
         credentials: "include",
       });
@@ -41,7 +41,7 @@ const Navbar = () => {
   return (
     <div className='navbar'>
       <div className="logo">
-        <Link to="/"><img src="/src/assets/images/VB_LOGO.png" loading='lazy' alt='Logo' /></Link>
+        <Link to="/"><img src="/images/VB_LOGO.png" loading='lazy' alt='Logo' /></Link>
       </div>
       <ul className={`navlinks ${activeMenu ? "show-menu" : ""}`}>
         <li className="close-menu">
