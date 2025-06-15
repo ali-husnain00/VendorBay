@@ -45,7 +45,7 @@ const ContextProvider = ({ children }) => {
     const getLoggedInUser = async () => {
         setLoading(true)
         try {
-            const res = await fetch("http://localhost:3000/getLoggedInUser", {
+            const res = await fetch(`${BASE_URL}/getLoggedInUser`, {
                 method: "GET",
                 credentials: "include"
             })
@@ -87,7 +87,7 @@ const ContextProvider = ({ children }) => {
     const getSellerInfo = async () => {
         setLoading(true)
         try {
-            const res = await fetch("http://localhost:3000/getSellerInfo", {
+            const res = await fetch(`${BASE_URL}/getSellerInfo`, {
                 method: "GET",
                 credentials: "include"
             })
