@@ -83,7 +83,7 @@ const ProductsList = () => {
                 <td>Rs {product.price}</td>
                 <td>{product.stock}</td>
                 <td>{product.isFeatured ? 'Yes' : 'No'}</td>
-                <td>
+                <td className='action-btns-admin'>
                   <button className="btn-danger" onClick={() => handleDelete(product._id)}>Delete</button>
                   <button className="btn-accent" onClick={() => toggleFeatured(product._id)}>
                     {product.isFeatured ? 'Unmark' : 'Mark'} Featured
