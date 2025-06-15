@@ -29,7 +29,7 @@
 }
 
 .product-card {
-  width: 260px;
+  min-width: 260px;
   min-height: max-content;
   height: auto;
   padding: 20px;
@@ -90,4 +90,43 @@
 
 .add-to-cart-btn:hover {
   background-color: #FFC107; 
+}
+
+@media (max-width:850px){
+  .latest-products h2{
+    font-size: 25px;
+  }
+}
+
+@media (max-width:780px){
+  .product-image{
+    height: 100px;
+  }
+  .product-card{
+    width: 220px;
+  }
+  .product-info h3{
+    font-size: 15px;
+  }
+  .price{
+    font-size: 15px;
+  }
+}
+
+@media (max-width:520px){
+  .latest-products h2{
+    font-size: 20px;
+  }
+  .product-image{
+    height: 70px;
+  }
+  .product-card{
+    min-width: 200px;
+  }
+  .product-info h3{
+    font-size: 14px;
+  }
+  .price{
+    font-size: 13px;
+  }
 }

@@ -151,3 +151,131 @@
     border-radius: 8px;
     cursor: pointer;
 }
+
+@media (max-width:1630px){
+    .cart-main{
+        flex-direction: column;
+    }
+    .cart-items{
+        width: 100%;
+    }
+    .cart-summary{
+        width: 100%;
+    }
+    .cart-action-btns{
+        justify-content: start;
+    }
+    .checkout-btn{
+        width: 200px;
+    }
+    .clear-cart-btn{
+        width: 200px;
+    }
+}
+
+@media (max-width:1300px){
+    .cart{
+        padding: 40px 60px;
+    }
+}
+
+@media (max-width:868px){
+    .cart-details h3{
+        font-size: 17px;
+    }
+    .checkout-btn{
+        width: 150px;
+    }
+    .clear-cart-btn{
+        width: 150px;
+    }
+}
+
+@media (max-width:768px){
+    .cart{
+        padding: 40px 30px;
+    }
+
+    .cart h2{
+        font-size: 25px;
+    }
+}
+
+@media (max-width:600px){
+    .cart-items{
+        background-color: transparent;
+        padding: 0;
+    }
+    .cart-details h3{
+        font-size: 16px;
+    }
+    .cart-image{
+        width: 100px;
+        height: 100px;
+    }
+}
+
+@media (max-width:450px){
+    .cart h2{
+        font-size: 24px;
+    }
+    .cart-details h3{
+        font-size: 14px;
+    }
+    .cart-image{
+        width: 70px;
+        height: 70px;
+    }
+    .price{
+        font-size: 14px;
+    }
+    .category{
+        font-size: 14px;
+    }
+    .quant-control{
+        font-size: 14px;
+    }
+    .cart-summary {
+        background-color: transparent;
+    }
+    .cart-summary h3{
+        font-size: 16px;
+    }
+    .cart-summary p{
+        font-size: 15px;
+    }
+    .cart-summary h4{
+        font-size: 15px;
+    }
+    .checkout-btn{
+        width: 130px;
+        font-size: 13px;
+    }
+    .clear-cart-btn{
+        width: 130px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width:390px){
+    .cart h2{
+        font-size: 22px;
+    }
+    .cart-details h3{
+        font-size: 13px;
+    }
+    .cart-image{
+        width: 70px;
+        height: 70px;
+    }
+    .price{
+        font-size: 13px;
+    }
+    .category{
+        font-size: 13px;
+    }
+    .quant-control{
+        font-size: 13px;
+    }
+}
+

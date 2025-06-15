@@ -71,3 +71,31 @@
   padding-top: 1rem;
   width: 100%;
 }
+
+@media (max-width:768px){
+  .site-footer{
+    padding: 50px 60px;
+  }
+  .footer-content{
+    gap: 4rem;
+    justify-content: start;
+  }
+}
+
+@media (max-width:580px){
+  .site-footer{
+    padding: 50px 30px;
+  }
+  .site-footer h2{
+    font-size: 20px;
+  }
+  .site-footer p{
+    font-size: 0.93rem;
+  }
+  .footer-column h4{
+    font-size: 19px;
+  }
+  .footer-column ul li a{
+    font-size: 0.93rem;
+  }
+}

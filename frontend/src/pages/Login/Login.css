@@ -67,3 +67,21 @@
     color: #1E90FF;
     text-decoration: none;
 }
+
+@media (max-width:1300px){
+  .login{
+    padding: 40px 60px;
+  }
+}
+
+@media (max-width:768px){
+  .login{
+    padding: 40px 30px;
+  }
+  .login-container{
+    padding: 30px;
+  }
+  .login-container h2{
+    font-size: 22px;
+  }
+}

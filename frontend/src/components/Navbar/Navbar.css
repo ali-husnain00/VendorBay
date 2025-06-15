@@ -148,3 +148,72 @@ select option {
     font-size: 15px;
     box-shadow: 0 2px 5px rgba(30, 144, 255, 0.4);
 }
+
+.menu {
+    display: none;
+}
+
+@media (max-width:1300px) {
+    .navbar{
+        padding: 0 60px;
+    }
+
+    .navlinks {
+        display: flex;
+        flex-direction: column;
+        background-color: black;
+        width: 350px;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: 100%;
+        padding: 25px 0;
+        z-index: 1000;
+        transition: 0.45s all ease;
+    }
+
+    .show-menu {
+        right: 0;
+    }
+
+    .navlinks .navlink a {
+        color: white;
+    }
+
+    .close-menu {
+        width: 100%;
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        padding: 0 30px;
+    }
+
+    .menu {
+        display: block;
+    }
+}
+
+@media (max-width:768px){
+    .navbar{
+        padding: 0 30px;
+    }
+    .logo{
+        width: 175px;
+    }
+}
+
+@media (max-width:550px){
+    .navlinks{
+        width: 100%;
+    }
+}
+
+@media (max-width:400px){
+    .navbar{
+        padding: 0 20px;
+        height: 80px;
+    }
+    .logo{
+        width: 150px;
+    }
+}

@@ -67,3 +67,22 @@
   color: #FF6F61;
   text-decoration: none;
 }
+
+@media (max-width:1300px){
+  .register{
+    padding: 40px 60px;
+  }
+}
+
+@media (max-width:768px){
+  .register{
+    padding: 40px 30px;
+  }
+  .register-container{
+    padding: 30px;
+  }
+  .register-container h2{
+    font-size: 22px;
+  }
+}
+

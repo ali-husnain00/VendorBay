@@ -1,10 +1,10 @@
 .profile {
     width: 100%;
-    height: calc(100vh - 100px);
+    min-height: calc(100vh - 100px);
+    height: auto;
     padding: 40px 100px;
     display: flex;
     gap: 100px;
-    overflow: hidden;
 }
 
 .user-info-side {
@@ -110,15 +110,6 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    overflow-y: auto;
-    padding: 20px;
-    scroll-behavior: smooth;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-
-.orders-side::-webkit-scrollbar{
-    display: none;
 }
 
 .orders-side h3 {
@@ -127,6 +118,62 @@
 }
 
 .orders-container {
-    column-count:2;
+    column-count:3;
     column-gap: 20px;
+}
+
+@media (max-width:1750px){
+    .profile{
+        flex-direction: column;
+    }
+    .user-info-side{
+        flex-direction: row;
+        gap: 100px;
+        align-items: center;
+        width: 100%;
+    }
+    .orders-side{
+        width: 100%;
+    }
+}
+
+@media(max-width:1300px){
+    .profile{
+        padding: 40px 60px;
+    }
+}
+
+@media (max-width:1024px){
+    .user-info-side{
+        flex-direction: column;
+        align-items: start;
+        gap: 40px;
+    }
+    .orders-container{
+        column-count: 2;
+    }
+}
+
+@media (max-width:768px){
+    .profile{
+        padding: 40px 30px;
+    }
+    .orders-container{
+        column-count: 1;
+    }
+    .update-form{
+        width: max-content;
+    }
+    .update-form form input{
+        width: 80vw;
+    }
+}
+
+@media (max-width:400px){
+    .order-card{
+        font-size: 14px;
+    }
+    .order-card .product-info h5{
+        font-size: 15px;
+    }
 }

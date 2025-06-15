@@ -35,3 +35,28 @@
   color: #1E90FF;
   cursor: pointer;
 }
+
+@media (max-width:1000px){
+  .search-bar{
+    max-width: 650px;
+  }
+}
+
+@media (max-width:868px){
+  .search-bar{
+    max-width: 515px;
+  }
+}
+
+@media (max-width:768px){
+  .search-bar input{
+   padding: 12px 45px 12px 20px;
+  }
+}
+
+@media (max-width:400px){
+  .search-bar input{
+   padding: 10px 45px 10px 20px;
+   font-size: 15px;
+  }
+}

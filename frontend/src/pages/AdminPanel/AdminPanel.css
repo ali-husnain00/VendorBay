@@ -75,3 +75,17 @@
   background-color: var(--background);
   overflow-y: auto;
 }
+
+.back-to-home-btn{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 40px;
+  transition: 0.45s all ease;
+}
+
+.back-to-home-btn:hover{
+  color: rgb(243, 243, 243);
+}

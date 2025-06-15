@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
 import './AdminPanel.css';
+import { IoChevronBack } from "react-icons/io5";
 import { context } from '../../components/Context/Context';
 import Loading from '../../components/Loading/Loading';
 import AdminDashboard from './AdminDashboard';
@@ -7,10 +8,12 @@ import UsersList from './UsersList';
 import SellersList from './SellersList';
 import ProductsList from './ProductsList';
 import OrdersList from './OrdersList';
+import { useNavigate } from 'react-router';
 
 const AdminPanel = () => {
   const [activeView, setActiveView] = useState('dashboard');
   const { user, BASE_URL, loading } = useContext(context);
+  const navigate = useNavigate()
 
   const renderView = () => {
     switch (activeView) {
@@ -34,6 +37,10 @@ const AdminPanel = () => {
   return (
     <div className="dashboard-container">
       <aside className="sidebar">
+        <div className="back-to-home-btn" onClick={() =>navigate("/")}>
+          <IoChevronBack size={20} fontWeight={1000}/>
+          Back to home
+        </div>
         <div className="admin-info">
           <img src={`${BASE_URL}/uploads/${user.profilePic}`} alt="Admin Avatar" loading="lazy" />
           <h3>{user.username}</h3>

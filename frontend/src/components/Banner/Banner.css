@@ -91,3 +91,41 @@
 .dot.active-dot {
   background: #FFD700;
 }
+
+@media (max-width:1100px){
+  .banner{
+    min-height: 40vh;
+    height: auto;
+    border-radius: 10px;
+  }
+}
+
+@media (max-width:600px){
+  .overlay h1{
+    font-size: 32px;
+  }
+  .overlay p{
+    font-size: 18px;
+  }
+  .overlay button{
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width:450px){
+  .overlay h1{
+    font-size: 25px;
+  }
+  .overlay p{
+    font-size: 15px;
+  }
+  .overlay button{
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+  .dot{
+    width: 8px;
+    height: 8px;
+  }
+}

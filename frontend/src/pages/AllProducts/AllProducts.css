@@ -112,3 +112,15 @@
   cursor: not-allowed;
   transform: none;
 }
+
+@media (max-width:1300px){
+  .allproducts{
+    padding: 40px 60px;
+  }
+}
+
+@media (max-width:520px){
+  .allproducts{
+    padding: 40px 30px;
+  }
+}
