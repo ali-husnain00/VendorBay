@@ -3,6 +3,8 @@ import './Register.css';
 import { Link, useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 import Loading from '../../components/Loading/Loading';
+import { useContext } from 'react';
+import { context } from '../../components/Context/Context';
 
 const Register = () => {
 
@@ -10,6 +12,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const {BASE_URL} = useContext(context)
 
   const navigate = useNavigate()
 
@@ -18,7 +21,7 @@ const Register = () => {
     e.preventDefault();
     try {
 
-      const res = await fetch("http://localhost:3000/register",{
+      const res = await fetch(`${BASE_URL}/register`,{
         method:"POST",
         headers:{
           "Content-Type": "application/json"

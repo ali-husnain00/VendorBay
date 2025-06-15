@@ -10,7 +10,7 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const {getLoggedInUser, user, getSellerInfo, getSellerStats} = useContext(context);
+    const {getLoggedInUser, user, getSellerInfo, getSellerStats, BASE_URL} = useContext(context);
     const navigate = useNavigate();
 
     const [loading, setLoading] = useState(false)
@@ -21,7 +21,7 @@ const Login = () => {
 
     try {
 
-      const res = await fetch("http://localhost:3000/login",{
+      const res = await fetch(`${BASE_URL}/login`,{
         method:"POST",
         headers:{
           "Content-Type": "application/json"
