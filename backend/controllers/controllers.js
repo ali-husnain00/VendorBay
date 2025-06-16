@@ -49,7 +49,7 @@ export const login = async (req, res) => {
       expiresIn: "24h",
     });
 
-    res.cookie("token", token, { httpOnly: true, secure:true, sameSite:"None" });
+    res.cookie("token", token, { httpOnly: true, secure:true, sameSite:"None", maxAge: 24 * 60 * 60 * 1000, });
     res.status(200).send("User Logged In Successfully!");
   } catch (error) {
     res.status(500).send("An error occured while login " + error);
@@ -73,7 +73,7 @@ export const getLoggedInUser = async (req, res) => {
 };
 
 export const logout = (req, res) => {
-  res.clearCookie("token", { httpOnly: true, sameSite: "strict" });
+  res.clearCookie("token", { httpOnly: true, secure:true, sameSite:"None" });
   res.status(200).send("User Logged out successfully!");
 };
 
