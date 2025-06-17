@@ -51,7 +51,6 @@
 ## 🧪 Getting Started (Local Setup)
 
 ### Clone the repository:
-```bash
 - git clone https://github.com/ali-husnain00/VendorBay.git
 - cd VendorBay
 
