@@ -77,7 +77,7 @@
 ### 📄 License
 - This project is open-source and available under the MIT License.
 
-##3 👨‍💻 Developer
+### 👨‍💻 Developer
 - Ali Husnain
 - Portfolio Website: [https://alihusnaindev.netlify.app/](https://alihusnaindev.netlify.app/)
 - LinkedIn: [https://www.linkedin.com/in/ali-husnain00/](https://www.linkedin.com/in/ali-husnain00/)
