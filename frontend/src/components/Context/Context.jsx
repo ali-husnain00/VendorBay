@@ -85,7 +85,6 @@ const ContextProvider = ({ children }) => {
 
 
     const getSellerInfo = async () => {
-        setLoading(true)
         try {
             const res = await fetch(`${BASE_URL}/getSellerInfo`, {
                 method: "GET",
@@ -98,13 +97,9 @@ const ContextProvider = ({ children }) => {
         } catch (error) {
             console.log("An error occured while getting seller info" + error)
         }
-        finally {
-            setLoading(false)
-        }
     }
 
     const getSellerStats = async () => {
-        setLoading(true)
         try {
             const res = await fetch(`${BASE_URL}/seller/dashboard-stats`, {
                 method: "GET",
@@ -119,9 +114,6 @@ const ContextProvider = ({ children }) => {
             }
         } catch (error) {
             console.log(error)
-        }
-        finally {
-            setLoading(false)
         }
     }
 
