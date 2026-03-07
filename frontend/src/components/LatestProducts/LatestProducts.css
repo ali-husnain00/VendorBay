@@ -1,132 +1,152 @@
 .latest-products {
-  background-color: #F5F5F5; 
-  color: #333333; 
+  background-color: var(--color-background);
+  color: var(--color-text);
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: var(--space-8);
 }
 
-.latest-products h2 { 
+.latest-products h2 {
   font-weight: 700;
-  font-size: 2rem;
-  font-family: "Poppins";
+  font-size: var(--text-2xl);
+  font-family: var(--font-heading);
+}
+
+.section-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  min-height: 120px;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.section-spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--color-border);
+  border-top-color: var(--color-text-muted);
+  border-radius: 50%;
+  animation: section-spin 0.8s linear infinite;
+}
+
+@keyframes section-spin {
+  to { transform: rotate(360deg); }
 }
 
 .products-container {
   width: 100%;
   height: max-content;
-  height: auto;
   display: flex;
-  gap: 30px;
+  gap: var(--space-8);
   overflow-x: auto;
   scroll-behavior: smooth;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
 
-.products-container::-webkit-scrollbar{
+.products-container::-webkit-scrollbar {
   display: none;
 }
 
 .product-card {
   min-width: 260px;
   min-height: max-content;
-  height: auto;
-  padding: 20px;
-  background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(30, 144, 255, 0.15); 
+  padding: var(--space-5);
+  background-color: var(--color-surface);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
   outline: none;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--space-5);
 }
 
-.product-card:focus,
-.product-card:hover {
-  box-shadow: 0 10px 20px rgba(30, 144, 255, 0.3);
+.product-card:hover,
+.product-card:focus-visible {
+  box-shadow: var(--shadow-card-hover);
 }
 
 .product-image {
   width: 100%;
   height: 160px;
   object-fit: contain;
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
+  border-radius: var(--radius-lg);
 }
 
 .product-info {
-  color: #333333;
+  color: var(--color-text);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-3);
 }
 
 .product-info h3 {
-  font-size: 1.1rem;
+  font-size: var(--text-lg);
   font-weight: 600;
 }
 
-.price {
+.latest-products .price {
   font-weight: 700;
-  color: #FF6F61; 
-  font-size: 1.1rem;
+  color: var(--color-secondary);
+  font-size: var(--text-lg);
 }
 
 .add-to-cart-btn {
-  margin-top: 8px;
-  padding: 8px 12px;
-  background-color: #FFD700; 
+  margin-top: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--color-accent);
   border: none;
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   font-weight: 600;
-  color: #333333; 
+  color: var(--color-text);
   cursor: pointer;
   transition: background-color 0.3s ease;
   text-align: center;
 }
 
 .add-to-cart-btn:hover {
-  background-color: #FFC107; 
+  background-color: var(--color-accent-hover);
 }
 
-@media (max-width:850px){
-  .latest-products h2{
-    font-size: 25px;
+@media (max-width: 850px) {
+  .latest-products h2 {
+    font-size: var(--text-xl);
   }
 }
 
-@media (max-width:780px){
-  .product-image{
+@media (max-width: 780px) {
+  .product-image {
     height: 100px;
   }
-  .product-card{
+  .product-card {
     width: 220px;
   }
-  .product-info h3{
+  .product-info h3 {
     font-size: 15px;
   }
-  .price{
+  .latest-products .price {
     font-size: 15px;
   }
 }
 
-@media (max-width:520px){
-  .latest-products h2{
-    font-size: 20px;
+@media (max-width: 520px) {
+  .latest-products h2 {
+    font-size: var(--text-lg);
   }
-  .product-image{
+  .product-image {
     height: 70px;
   }
-  .product-card{
+  .product-card {
     min-width: 200px;
   }
-  .product-info h3{
-    font-size: 14px;
+  .product-info h3 {
+    font-size: var(--text-sm);
   }
-  .price{
-    font-size: 13px;
+  .latest-products .price {
+    font-size: var(--text-sm);
   }
 }

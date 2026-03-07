@@ -1,88 +1,128 @@
-.register{
-    width: 100vw;
-    height: calc(100vh - 100px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.register {
+  width: 100%;
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  min-height: calc(100vh - 100px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-10) var(--page-padding-lg);
 }
 
 .register-container {
   max-width: 450px;
-  margin: 60px auto;
-  padding: 35px;
-  background-color: #ffffff;
-  border: 1px solid #eee;
-  border-radius: 14px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
+  width: 100%;
+  margin: var(--space-16) auto;
+  padding: var(--space-8);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
   text-align: center;
 }
 
-.register-container h2 {
-  color: #FF6F61;
-  margin-bottom: 25px;
+.register-title {
+  color: var(--color-primary);
+  margin-bottom: var(--space-6);
+  font-size: var(--text-2xl);
 }
 
 .register-container form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--space-4);
+}
+
+.register-container .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  text-align: left;
+}
+
+.register-container .form-group label {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text);
+  margin-bottom: var(--space-1);
 }
 
 .register-container input {
-  padding: 12px 15px;
-  background-color: #F5F5F5;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1rem;
-  color: #333;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  width: 100%;
+  transition: border-color 0.2s;
+}
+
+.register-container input::placeholder {
+  color: var(--color-text-muted);
+  opacity: 0.8;
 }
 
 .register-container input:focus {
-  border-color: #FF6F61;
-  outline: none;
+  border-color: var(--color-primary);
+  outline: 1px solid var(--color-primary);
+  outline-offset: 1px;
 }
 
 .register-container button {
-  background-color: #FF6F61;
-  color: white;
+  background-color: var(--color-primary);
+  color: var(--color-surface);
   border: none;
-  border-radius: 8px;
-  padding: 12px;
-  font-size: 1rem;
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  font-size: var(--text-base);
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background-color 0.3s, color 0.3s;
+  font-weight: 600;
+  margin-top: var(--space-2);
 }
 
-.register-container button:hover {
-  background-color: #FFD700;
-  color: #333;
+.register-container button:hover:not(:disabled) {
+  background-color: var(--color-accent);
+  color: var(--color-text);
+}
+
+.register-container button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 .register-container p {
-  font-size: 0.9rem;
-  color: #333;
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  margin-top: var(--space-3);
 }
 
 .register-container a {
-  color: #FF6F61;
+  color: var(--color-primary);
   text-decoration: none;
+  font-weight: 500;
 }
 
-@media (max-width:1300px){
-  .register{
-    padding: 40px 60px;
-  }
+.register-container a:hover {
+  text-decoration: underline;
 }
 
-@media (max-width:768px){
-  .register{
-    padding: 40px 30px;
-  }
-  .register-container{
-    padding: 30px;
-  }
-  .register-container h2{
-    font-size: 22px;
+@media (max-width: 1024px) {
+  .register {
+    padding: var(--space-10) var(--page-padding-md);
   }
 }
 
+@media (max-width: 768px) {
+  .register {
+    padding: var(--space-10) var(--page-padding-sm);
+  }
+  .register-container {
+    padding: var(--space-8);
+  }
+  .register-title {
+    font-size: var(--text-xl);
+  }
+}

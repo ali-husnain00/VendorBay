@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { context } from '../../components/Context/Context';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import Loading from '../../components/Loading/Loading';
+import { ShoppingBag } from 'lucide-react';
 import './Cart.css';
 
 const Cart = () => {
@@ -109,7 +110,7 @@ const Cart = () => {
   if (loading || !user) return <Loading />;
 
   return (
-    <div className="cart">
+    <main className="cart" aria-label="Shopping cart">
       <h2 className="cart-heading">Your Cart 🛒</h2>
 
       {cartProducts.length > 0 ? (
@@ -117,7 +118,7 @@ const Cart = () => {
           <div className="cart-items">
             {cartProducts.map((item) => (
               <div key={item?.product?._id} className="cart-item">
-                <div className="remove-icon" title='Remove from cart' onClick={() =>handleRemoveProduct(item?.product?._id)}>x</div>
+                <button type="button" className="remove-icon" title="Remove from cart" aria-label={`Remove ${item.product.title} from cart`} onClick={() => handleRemoveProduct(item?.product?._id)}>×</button>
                 <img
                   src={`${BASE_URL}/uploads/${item?.product?.image}`}
                   className="cart-image" loading='lazy'
@@ -149,9 +150,14 @@ const Cart = () => {
           </div>
         </div>
       ) : (
-        <p className="empty-cart-msg">Your cart is empty.</p>
+        <div className="empty-cart">
+          <ShoppingBag className="empty-cart-icon" size={48} aria-hidden />
+          <p className="empty-cart-msg">Your cart is empty.</p>
+          <p className="empty-cart-sub">Add items from the store to get started.</p>
+          <Link to="/products" className="empty-cart-cta">Continue shopping</Link>
+        </div>
       )}
-    </div>
+    </main>
   );
 };
 

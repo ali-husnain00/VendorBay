@@ -1,76 +1,87 @@
 .admin-users-container {
-  padding: 2rem;
-  background: #F5F5F5;
-  color: #333333;
+  padding: 0;
 }
 
-.admin-users-container h2 {
-  color: #1E90FF;
-  margin-bottom: 1rem;
+.admin-users-card {
+  padding: var(--space-5);
 }
 
-.users-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+.admin-empty-state {
+  color: var(--admin-text-muted);
+  font-size: var(--text-sm);
+  margin: 0;
 }
 
-.users-table th, .users-table td {
-  padding: 1rem;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-
-.users-table th {
-  background-color: #1E90FF;
-  color: white;
-}
-
-.dropdown-container {
+.admin-dropdown-wrap {
   position: relative;
   display: inline-block;
 }
 
-.dropdown-toggle {
-  background-color: #FFD700;
-  color: #333;
+.admin-action-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  background: none;
   border: none;
-  padding: 6px 10px;
-  border-radius: 6px;
+  border-radius: var(--radius-md);
+  color: var(--admin-text-muted);
   cursor: pointer;
-  font-size: 0.85rem;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
-.dropdown-menu-users {
+.admin-action-icon-btn:hover,
+.admin-action-icon-btn:focus-visible {
+  background: #f3f4f6;
+  color: var(--admin-text);
+  outline: none;
+}
+
+.admin-dropdown-menu {
   position: absolute;
-  top: 110%;
-  left: 0;
-  background: white;
-  border: 1px solid #ddd;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  border-radius: 6px;
-  overflow: hidden;
-  z-index: 1000;
-  width: 120px;
+  top: 100%;
+  right: 0;
+  margin-top: var(--space-1);
+  min-width: 160px;
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  padding: var(--space-2);
+  z-index: 100;
 }
 
-.dropdown-menu-users button {
+.admin-dropdown-menu button {
   display: block;
   width: 100%;
-  padding: 0.6rem 1rem;
-  background: white;
+  padding: var(--space-2) var(--space-3);
+  background: none;
   border: none;
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
   text-align: left;
+  color: var(--admin-text);
   cursor: pointer;
-  font-size: 0.9rem;
+  transition: background 0.2s ease;
 }
 
-.dropdown-menu-users button:hover {
-  background-color: #f0f0f0;
+.admin-dropdown-menu button:hover,
+.admin-dropdown-menu button:focus-visible {
+  background: #f3f4f6;
+  outline: none;
 }
 
-.dropdown-menu-users .danger {
-  color: #FF6F61;
+.admin-dropdown-danger {
+  color: #dc2626 !important;
+}
+
+.admin-dropdown-danger:hover {
+  background: #fef2f2 !important;
+}
+
+.admin-table-id {
+  font-family: monospace;
+  font-size: var(--text-xs);
 }

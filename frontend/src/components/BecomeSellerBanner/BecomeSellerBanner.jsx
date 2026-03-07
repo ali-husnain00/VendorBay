@@ -20,7 +20,7 @@ const BecomeSellerBanner = () => {
         <button onClick={handleClick}>Become a Seller</button>
       </div>
       <div className="banner-image">
-        <img src="/src/assets/images/SellerBannerImage.png" loading="lazy"  />
+        <img src="/images/SellerBannerImage.png" loading="lazy" alt="Start selling on VendorBay" />
       </div>
     </section>
   );

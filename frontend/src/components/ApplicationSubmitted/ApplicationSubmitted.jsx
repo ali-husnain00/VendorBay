@@ -1,6 +1,6 @@
 import React from 'react';
 import './ApplicationSubmitted.css';
-import { FaCheckCircle } from "react-icons/fa";
+import { CheckCircle } from "lucide-react";
 import { useNavigate } from 'react-router';
 
 const ApplicationSubmitted = () => {
@@ -10,7 +10,7 @@ const ApplicationSubmitted = () => {
   return (
     <div className="application-submitted">
       <div className="confirmation-box">
-        <FaCheckCircle className="check-icon" />
+        <CheckCircle className="check-icon" size={48} />
         <h2>Application Submitted!</h2>
         <p>
           Thank you for applying to become a seller on <strong>VendorBay</strong>.

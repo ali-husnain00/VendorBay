@@ -49,18 +49,23 @@ const Banner = () => {
           <div className="overlay">
             <h1>{slide.heading}</h1>
             <p>{slide.subtext}</p>
-            <button onClick={() =>navigate("/products")}>{slide.btnText}</button>
+            <button type="button" onClick={() => navigate("/products")}>{slide.btnText}</button>
           </div>
         </div>
       ))}
 
-      <div className="dots">
+      <div className="dots" role="tablist" aria-label="Carousel slides">
         {slides.map((_, index) => (
-          <span
+          <button
             key={index}
+            type="button"
+            role="tab"
+            aria-label={index === current ? `Slide ${index + 1}, current` : `Go to slide ${index + 1}`}
+            aria-selected={index === current}
             className={current === index ? "dot active-dot" : "dot"}
             onClick={() => setCurrent(index)}
-          ></span>
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setCurrent(index); } }}
+          />
         ))}
       </div>
     </div>

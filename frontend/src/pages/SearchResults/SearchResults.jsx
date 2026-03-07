@@ -1,9 +1,9 @@
 import React from 'react'
 import { useContext } from 'react'
 import { context } from '../../components/Context/Context'
-import { useEffect } from 'react'
 import Loading from '../../components/Loading/Loading'
-import { useNavigate } from 'react-router'
+import { useNavigate, Link } from 'react-router'
+import { Search } from 'lucide-react'
 import "./SearchResults.css"
 
 const SearchResults = () => {
@@ -22,15 +22,14 @@ const SearchResults = () => {
     }
 
     return (
-        <div className='search-page'>
-            <h2>Search Results</h2>
+        <main className="search-page" aria-label="Search results">
+            <h1 className="search-page-heading">Search Results</h1>
             <div className="container">
                 {
-                    searchProduct.length > 0 ?
-                        (
+                    searchProduct.length > 0 ? (
                             searchProduct.map((prod) => (
                                 <div key={prod._id} className="product-card" onClick={() => navigate(`/product/details/${prod._id}`)}>
-                                    <img src={`${BASE_URL}/uploads/${prod.image}`} className="product-image" loading='lazy' />
+                                    <img src={`${BASE_URL}/uploads/${prod.image}`} alt={prod.title} className="product-image" loading="lazy" />
                                     <div className="product-info">
                                         <h3>{prod.title.length > 30 ? prod.title.slice(0, 30) + "..." : prod.title}</h3>
                                         <p className="price">Rs {prod.price}</p>
@@ -38,13 +37,17 @@ const SearchResults = () => {
                                     </div>
                                 </div>
                             ))
-                        ) :
-                        (
-                            <p>No product found</p>
+                        ) : (
+                            <div className="empty-search">
+                                <Search className="empty-search-icon" size={48} aria-hidden />
+                                <p className="empty-search-msg">No products found</p>
+                                <p className="empty-search-sub">Try different keywords or browse all products.</p>
+                                <Link to="/products" className="empty-search-cta">Browse all products</Link>
+                            </div>
                         )
                 }
             </div>
-        </div>
+        </main>
     )
 }
 

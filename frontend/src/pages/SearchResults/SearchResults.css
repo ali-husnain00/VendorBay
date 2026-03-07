@@ -1,27 +1,81 @@
-.search-page{
-    width: 100vw;
-    min-height: calc(100vh - 100px);
-    height: auto;
-    padding: 40px 100px;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
+.search-page {
+  width: 100%;
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  min-height: calc(100vh - 100px);
+  padding: var(--space-10) var(--page-padding-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
 }
 
-.search-page .container{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+.search-page-heading {
+  color: var(--color-primary);
+  text-align: center;
+  font-size: var(--text-2xl);
 }
 
-@media (max-width:1300px){
-    .search-page{
-        padding: 40px 60px;
-    }
+.search-page .container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  justify-content: center;
 }
 
-@media (max-width:768px){
-    .search-page{
-        padding: 40px 30px;
-    }
+.empty-search {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 40vh;
+  gap: var(--space-4);
+  text-align: center;
+  padding: var(--space-10);
+}
+
+.empty-search-icon {
+  font-size: 3rem;
+  color: var(--color-text-muted);
+}
+
+.empty-search-msg {
+  font-size: var(--text-xl);
+  color: var(--color-text);
+  font-weight: 600;
+  margin: 0;
+}
+
+.empty-search-sub {
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.empty-search-cta {
+  display: inline-block;
+  padding: var(--space-3) var(--space-6);
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+  text-decoration: none;
+  border-radius: var(--radius-lg);
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  margin-top: var(--space-2);
+}
+
+.empty-search-cta:hover {
+  background-color: var(--color-primary-hover);
+}
+
+@media (max-width: 1024px) {
+  .search-page {
+    padding: var(--space-10) var(--page-padding-md);
+  }
+}
+
+@media (max-width: 768px) {
+  .search-page {
+    padding: var(--space-10) var(--page-padding-sm);
+  }
 }

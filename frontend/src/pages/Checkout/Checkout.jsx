@@ -14,6 +14,7 @@ const Checkout = () => {
     const [city, setCity] = useState("")
     const [postalCode, setPostalCode] = useState("")
     const [selectedMethod, setSelectedMethod] = useState("");
+    const [orderSubmitting, setOrderSubmitting] = useState(false);
     const navigate = useNavigate();
 
     const fetchCart = async () => {
@@ -47,13 +48,11 @@ const Checkout = () => {
     const total = cartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
 
     const handlePlaceOrder = async () => {
-        setLoading(true)
         if (!address || !phone || !country || !postalCode || !city || !selectedMethod) {
             toast.warning("Please fill the complete form!");
-            setLoading(false); 
             return;
         }
-
+        setOrderSubmitting(true);
         try {
             const res = await fetch(`${BASE_URL}/orderNow `, {
                 method: "POST",
@@ -82,7 +81,7 @@ const Checkout = () => {
             console.log(error)
         }
         finally {
-            setLoading(false)
+            setOrderSubmitting(false);
         }
     };
 
@@ -91,59 +90,66 @@ const Checkout = () => {
     }
 
     return (
-        <div className="checkout-page">
-            <h2>Checkout</h2>
+        <main className="checkout-page" aria-label="Checkout">
+            <h1 className="checkout-heading">Checkout</h1>
             <div className="checkout-container">
                 <div className="checkout-left">
-                    <h3>Shipping Info</h3>
-                    <div className="form-group">
-                        <label>Full Name</label>
-                        <input type="text" value={user?.username} readOnly />
-                    </div>
-                    <div className="form-group">
-                        <label>Email</label>
-                        <input type="email" value={user?.email} readOnly />
-                    </div>
-                    <div className="form-group">
-                        <label>Shipping Address</label>
-                        <textarea
-                            placeholder="Enter your full address"
-                            value={address}
-                            onChange={(e) => setAddress(e.target.value)}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Phone</label>
-                        <input type="tel" pattern="[0-9]{10,13}" maxLength="13" value={phone} onChange={(e) => setPhone(e.target.value)} />
-                    </div>
-                    <div className="form-group">
-                        <label>Country</label>
-                        <input type="text" value={country} onChange={(e) => setCountry(e.target.value)} />
-                    </div>
-                    <label htmlFor="paymentMethod" className="form-label">
-                        Payment Method
-                    </label>
-                    <select
-                        id="paymentMethod"
-                        className="payment-select"
-                        value={selectedMethod}
-                        onChange={(e) => setSelectedMethod(e.target.value)}
-                    >
-                        <option value="">Select a payment method</option>
-                        <option value="Cash on delivery">Cash on delivery</option>
-                        <option value="card">Credit/Debit Card</option>
-                        <option value="bank">Bank Transfer</option>
-                        <option value="jazzcash">JazzCash</option>
-                        <option value="easypaisa">EasyPaisa</option>
-                    </select>
-                    <div className="form-group">
-                        <label>City</label>
-                        <input type="text" value={city} onChange={(e) => setCity(e.target.value)} />
-                    </div>
-                    <div className="form-group">
-                        <label>Postal Code</label>
-                        <input type="text" value={postalCode} onChange={(e) => setPostalCode(e.target.value)} />
-                    </div>
+                    <section aria-labelledby="shipping-heading">
+                        <h2 id="shipping-heading" className="checkout-section-title">Shipping address</h2>
+                        <div className="form-group">
+                            <label htmlFor="checkout-name">Full Name</label>
+                            <input id="checkout-name" type="text" value={user?.username} readOnly aria-readonly />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="checkout-email">Email</label>
+                            <input id="checkout-email" type="email" value={user?.email} readOnly aria-readonly />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="checkout-address">Shipping Address</label>
+                            <textarea
+                                id="checkout-address"
+                                placeholder="Enter your full address"
+                                value={address}
+                                onChange={(e) => setAddress(e.target.value)}
+                                disabled={orderSubmitting}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="checkout-phone">Phone</label>
+                            <input id="checkout-phone" type="tel" pattern="[0-9]{10,13}" maxLength="13" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="e.g. 03001234567" disabled={orderSubmitting} />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="checkout-country">Country</label>
+                            <input id="checkout-country" type="text" value={country} onChange={(e) => setCountry(e.target.value)} placeholder="Your country" disabled={orderSubmitting} />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="checkout-city">City</label>
+                            <input id="checkout-city" type="text" value={city} onChange={(e) => setCity(e.target.value)} placeholder="City" disabled={orderSubmitting} />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="checkout-postal">Postal Code</label>
+                            <input id="checkout-postal" type="text" value={postalCode} onChange={(e) => setPostalCode(e.target.value)} placeholder="Postal / ZIP code" disabled={orderSubmitting} />
+                        </div>
+                    </section>
+                    <section aria-labelledby="payment-heading">
+                        <h2 id="payment-heading" className="checkout-section-title">Payment method</h2>
+                        <label htmlFor="paymentMethod" className="visually-hidden">Payment Method</label>
+                        <select
+                            id="paymentMethod"
+                            className="payment-select"
+                            value={selectedMethod}
+                            onChange={(e) => setSelectedMethod(e.target.value)}
+                            disabled={orderSubmitting}
+                            aria-label="Payment method"
+                        >
+                            <option value="">Select a payment method</option>
+                            <option value="Cash on delivery">Cash on delivery</option>
+                            <option value="card">Credit/Debit Card</option>
+                            <option value="bank">Bank Transfer</option>
+                            <option value="jazzcash">JazzCash</option>
+                            <option value="easypaisa">EasyPaisa</option>
+                        </select>
+                    </section>
                 </div>
 
                 <div className="checkout-right">
@@ -151,7 +157,7 @@ const Checkout = () => {
                     <div className="order-items">
                         {cartItems.map(item => (
                             <div key={item.product._id} className="order-item">
-                                <img src={`${BASE_URL}/uploads/${item.product.image}`} alt="" loading='lazy' className='order-prod-img' />
+                                <img src={`${BASE_URL}/uploads/${item.product.image}`} alt={item.product.title} loading="lazy" className="order-prod-img" />
                                 <div className="order-info">
                                     <strong>{item.product.title.length > 35 ? item.product.title.slice(0, 35) + "..." : item.product.title}</strong>
                                     <p>Vendor: {item.product.seller.username || 'Unknown'}</p>
@@ -168,13 +174,13 @@ const Checkout = () => {
                         <h4>Total: Rs {total + 100}</h4>
                     </div>
                     <div>
-                        <button className="place-order-btn" onClick={handlePlaceOrder}>
-                            Place Order
+                        <button type="button" className="place-order-btn" onClick={handlePlaceOrder} disabled={orderSubmitting}>
+                            {orderSubmitting ? "Placing order…" : "Place Order"}
                         </button>
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
     );
 };
 

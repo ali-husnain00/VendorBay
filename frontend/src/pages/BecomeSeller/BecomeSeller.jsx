@@ -74,6 +74,7 @@ const BecomeSeller = () => {
                                 type="text"
                                 value={storeName}
                                 onChange={(e) => setStoreName(e.target.value)}
+                                placeholder="e.g. My Store"
                                 required
                             />
                         </label>
@@ -84,6 +85,7 @@ const BecomeSeller = () => {
                                 type="tel"
                                 value={contactNumber}
                                 onChange={(e) => setContactNumber(e.target.value)}
+                                placeholder="e.g. 03001234567"
                                 required
                             />
                         </label>
@@ -94,6 +96,7 @@ const BecomeSeller = () => {
                                 type="text"
                                 value={storeAddress}
                                 onChange={(e) => setStoreAddress(e.target.value)}
+                                placeholder="Full address"
                                 required
                             />
                         </label>
@@ -104,6 +107,7 @@ const BecomeSeller = () => {
                                 value={storeDescription}
                                 onChange={(e) => setStoreDescription(e.target.value)}
                                 rows="4"
+                                placeholder="Brief description of your store"
                                 required
                             />
                         </label>
@@ -114,6 +118,7 @@ const BecomeSeller = () => {
                                 type="file"
                                 accept="image/*"
                                 onChange={(e) => setStoreBanner(e.target.files[0])}
+                                title="Choose banner image"
                             />
                         </label>
 

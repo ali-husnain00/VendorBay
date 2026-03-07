@@ -85,6 +85,7 @@ const AddProducts = () => {
                         name="title"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
+                        placeholder="Product title"
                         required
                     />
                 </label>
@@ -96,6 +97,7 @@ const AddProducts = () => {
                         rows="4"
                         value={desc}
                         onChange={(e) => setDesc(e.target.value)}
+                        placeholder="Describe your product"
                         required
                     />
                 </label>
@@ -118,6 +120,9 @@ const AddProducts = () => {
                         name="price"
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
+                        placeholder="0"
+                        min="0"
+                        step="0.01"
                         required
                     />
                 </label>
@@ -143,6 +148,8 @@ const AddProducts = () => {
                         name="stock"
                         value={stock}
                         onChange={(e) => setStock(e.target.value)}
+                        placeholder="0"
+                        min="0"
                         required
                     />
                 </label>

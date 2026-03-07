@@ -1,20 +1,22 @@
 .add-product {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f9fbfc;
-    padding: 30px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-background);
+  padding: var(--space-8);
 }
 
 .product-form {
-    background-color: white;
-    padding: 30px 35px;
-    width: 600px;
-    height: max-content;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-    border-radius: 16px;
+  background-color: var(--color-surface);
+  padding: var(--space-8) var(--space-8);
+  width: 600px;
+  max-width: 100%;
+  height: max-content;
+  border: 1px solid var(--color-border-light);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  border-radius: var(--radius-xl);
 }
 
 .product-form h2 {
@@ -34,32 +36,45 @@
 
 .product-form input,
 .product-form textarea {
-    width: 100%;
-    padding: 10px 12px;
-    margin-top: 6px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 15px;
-    background-color: #fefefe;
-    outline-color: var(--color-primary);
-    resize: none;
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  margin-top: 6px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-base);
+  background-color: var(--color-surface);
+  transition: border-color 0.2s;
+  resize: none;
+}
+
+.product-form input::placeholder,
+.product-form textarea::placeholder {
+  color: var(--color-text-muted);
+  opacity: 0.8;
+}
+
+.product-form input:focus,
+.product-form textarea:focus {
+  border-color: var(--color-primary);
+  outline: 1px solid var(--color-primary);
+  outline-offset: 1px;
 }
 
 .cat-select select {
-    background-color: transparent;
-    color: #333;
-    border: 1px solid #ccc;
+  background-color: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
 }
 
-.cat-select select option{
-    color: #333;
+.cat-select select option {
+  color: var(--color-text);
 }
 
 .product-form button {
-    width: 100%;
-    padding: 12px;
-    background-color: var(--color-primary);
-    color: white;
+  width: 100%;
+  padding: var(--space-3);
+  background-color: var(--color-primary);
+  color: var(--color-surface);
     border: none;
     border-radius: 8px;
     font-size: 16px;
@@ -69,6 +84,7 @@
     margin-top: 15px;
 }
 
-.product-form button:hover {
-    background-color: #187bcd;
+.product-form button:hover,
+.product-form button:focus-visible {
+  background-color: var(--color-primary-hover);
 }

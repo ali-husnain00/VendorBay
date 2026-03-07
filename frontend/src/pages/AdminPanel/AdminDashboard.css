@@ -1,112 +1,142 @@
 .admin-dashboard {
   display: flex;
-  height: 100vh;
-  background-color: var(--background);
-  color: var(--text);
   flex-direction: column;
+  gap: var(--space-6);
 }
 
-/* Dashboard specific styles */
-.stats-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  margin-top: 1rem;
+.admin-dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: var(--space-4);
 }
 
-.stat-card {
-  background-color: white;
-  padding: 1.5rem;
-  width: 280px;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease;
+.admin-stat-card {
+  background-color: var(--admin-surface);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
   display: flex;
-  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.admin-stat-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
+}
+
+.admin-stat-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-lg);
+  display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
-.stat-card:hover {
-  transform: translateY(-3px);
+.admin-stat-icon-users { background: rgba(30, 144, 255, 0.12); color: var(--color-primary); }
+.admin-stat-icon-sellers { background: rgba(30, 144, 255, 0.12); color: var(--color-primary); }
+.admin-stat-icon-products { background: rgba(30, 144, 255, 0.12); color: var(--color-primary); }
+.admin-stat-icon-orders { background: rgba(30, 144, 255, 0.12); color: var(--color-primary); }
+.admin-stat-icon-sales { background: rgba(30, 144, 255, 0.12); color: var(--color-primary); }
+
+.admin-stat-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
 }
 
-.stat-card h3 {
-  color: var(--primary);
-  font-size: 20px;
+.admin-stat-label {
+  font-size: var(--text-xs);
+  color: var(--admin-text-muted);
+  font-weight: 500;
 }
 
-.stat-card p {
-  font-size: 1.25rem;
-  font-weight: bold;
-  color: var(--text);
+.admin-stat-value {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--admin-text);
 }
 
-.recent-orders h3 {
-  color: var(--primary);
-  margin-bottom: 1rem;
+.admin-dashboard-section-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--admin-text);
+  margin: 0 0 var(--space-4);
 }
 
-.recent-orders table {
+.admin-dashboard-chart {
+  padding: var(--space-5);
+}
+
+.admin-dashboard-chart-inner {
   width: 100%;
-  border-collapse: collapse;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  min-width: 0;
+  height: 260px;
+  position: relative;
 }
 
-.recent-orders th,
-.recent-orders td {
-  padding: 1rem;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+.admin-dashboard-chart-inner .recharts-surface {
+  overflow: visible;
 }
 
-.recent-orders th {
-  background-color: var(--primary);
-  color: white;
+.admin-dashboard-recent {
+  padding: var(--space-5);
 }
 
-.status {
-  padding: 0.3rem 0.6rem;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  font-weight: bold;
-  text-transform: capitalize;
+.admin-dashboard-empty {
+  color: var(--admin-text-muted);
+  font-size: var(--text-sm);
+  margin: 0;
 }
 
-.status.processing {
-  background-color: var(--accent);
-  color: #444;
+.admin-table-id {
+  font-family: monospace;
+  font-size: var(--text-xs);
 }
 
-.status.shipped {
-  background-color: #4caf50;
-  color: white;
-}
-
-.status.delivered {
-  background-color: #2e8b57;
-  color: white;
-}
-
-.status.cancelled {
-  background-color: #dc3545;
-  color: white;
-}
-
-.recent-orders {
-  overflow-x: auto;
-  margin: 30px 0;
-}
-
-
-@media (max-width:1100px) {
-  .stat-card {
-    width: 230px;
+@media (max-width: 767px) {
+  .admin-dashboard {
+    gap: var(--space-4);
   }
 
-  .recent-orders table {
-    width: 800px;
+  .admin-dashboard-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+
+  .admin-stat-card {
+    padding: var(--space-3);
+  }
+
+  .admin-stat-value {
+    font-size: var(--text-lg);
+  }
+
+  .admin-dashboard-chart,
+  .admin-dashboard-recent {
+    padding: var(--space-3);
+  }
+
+  .admin-dashboard-chart-inner {
+    height: 220px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-dashboard-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-stat-card {
+    padding: var(--space-4);
+  }
+
+  .admin-dashboard-chart-inner {
+    height: 200px;
   }
 }

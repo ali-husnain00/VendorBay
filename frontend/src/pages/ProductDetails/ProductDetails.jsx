@@ -40,10 +40,10 @@ const ProductDetails = () => {
     if (loading || !product) return <Loading />;
 
     return (
-        <div className="prod-details-page">
+        <main className="prod-details-page" aria-label="Product details">
             <div className="product-details-cont">
                 <div className="left-sec">
-                    <img src={`${BASE_URL}/uploads/${product.image}`} alt={product.title} />
+                    <img src={`${BASE_URL}/uploads/${product.image}`} alt={product.title} loading="lazy" />
                 </div>
 
                 <div className="right-sec">
@@ -67,9 +67,9 @@ const ProductDetails = () => {
 
                     <div className="actions">
                         <div className="quantity-control">
-                            <button onClick={decrease}>-</button>
-                            <input type="number" value={qty} readOnly />
-                            <button onClick={increase}>+</button>
+                            <button type="button" onClick={decrease} aria-label="Decrease quantity">−</button>
+                            <input type="number" value={qty} readOnly aria-label="Quantity" />
+                            <button type="button" onClick={increase} aria-label="Increase quantity">+</button>
                         </div>
                         <button className="btn add" onClick={() =>handleAddToCart(product._id, qty)}>Add to Cart</button>
                     </div>
@@ -82,7 +82,7 @@ const ProductDetails = () => {
                     relProducts.length > 0 ?(
                         relProducts.map(prod => (
                             <div key={prod._id} className="product-card" onClick={() => navigate(`/product/details/${prod._id}`)}>
-                                <img src={`${BASE_URL}/uploads/${prod.image}`} className="product-image" loading='lazy' />
+                                <img src={`${BASE_URL}/uploads/${prod.image}`} alt={prod.title} className="product-image" loading="lazy" />
                                 <div className="product-info">
                                     <h3>{prod.title.length > 30 ? prod.title.slice(0, 30) + "..." : prod.title}</h3>
                                     <p className="price">Rs {prod.price}</p>
@@ -93,12 +93,14 @@ const ProductDetails = () => {
                     )
                     :
                     (
-                        <p>No related product</p>
+                        <div className="related-empty">
+                            <p className="related-empty-msg">No related products at the moment.</p>
+                        </div>
                     )
                 }
                 </div>
             </div>
-        </div>
+        </main>
     );
 };
 

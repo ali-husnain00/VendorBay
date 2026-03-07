@@ -7,8 +7,7 @@ import { context } from '../../components/Context/Context';
 import Loading from '../../components/Loading/Loading';
 import Overview from '../../components/Overview/Overview';
 import SellerOrders from '../../components/SellerOrder/SellerOrders';
-import { HiMenuAlt1 } from "react-icons/hi";
-import { IoChevronBack } from "react-icons/io5";
+import { Menu, ArrowLeft } from "lucide-react";
 
 const Dashboard = () => {
   const [activeView, setActiveView] = useState('overview');
@@ -42,11 +41,11 @@ const Dashboard = () => {
       <nav className='seller-dash-nav'>
         <ul>
           <li onClick={() =>navigate("/")}>
-            <IoChevronBack fontSize={30}/>
+            <ArrowLeft size={24} />
             Back to home
           </li>
         </ul>
-        <HiMenuAlt1 fontSize={30} cursor="pointer" onClick={() =>setActiveSideBar(!activeSideBar)}/>
+        <Menu size={24} className="menu-icon" onClick={() => setActiveSideBar(!activeSideBar)} aria-label="Toggle menu" />
       </nav>
       <div className="main-container">
         <aside className={`sidebar ${activeSideBar ? "show-sb" : ""}`} >

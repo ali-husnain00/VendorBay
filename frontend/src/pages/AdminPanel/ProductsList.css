@@ -1,61 +1,75 @@
-.manage-products {
-  padding: 20px;
-  background-color: #F5F5F5;
-  color: #333333;
+.admin-products-container {
+  padding: 0;
 }
 
-.manage-products h2 {
-  color: #1E90FF;
-  margin-bottom: 20px;
+.admin-products-card {
+  padding: var(--space-5);
 }
 
-.manage-products table {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: white;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+.admin-empty-state {
+  color: var(--admin-text-muted);
+  font-size: var(--text-sm);
+  margin: 0;
 }
 
-.manage-products th,
-.manage-products td {
-  padding: 12px 15px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+.admin-featured-icon {
+  vertical-align: middle;
 }
 
-.manage-products th {
-  background-color: #1E90FF;
-  color: white;
+.admin-featured-yes {
+  color: var(--color-accent);
 }
 
-.manage-products tr:hover {
-  background-color: #f1f1f1;
+.admin-featured-no {
+  color: var(--admin-border);
 }
 
-.btn-danger {
-  background-color: #FF6F61;
-  color: white;
-  padding: 6px 12px;
-  margin-right: 10px;
-  border: none;
+.admin-products-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.admin-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: 500;
   cursor: pointer;
-  border-radius: 4px;
-}
-
-.btn-accent {
-  background-color: #FFD700;
-  color: #333333;
-  padding: 6px 12px;
+  transition: background 0.2s ease, color 0.2s ease;
   border: none;
-  cursor: pointer;
-  border-radius: 4px;
 }
 
+.admin-btn:focus-visible {
+  outline: 2px solid var(--admin-accent);
+  outline-offset: 2px;
+}
 
-@media (max-width:1400px){
-  .action-btns-admin{
-    display: flex;
+.admin-btn-secondary {
+  background: #f3f4f6;
+  color: var(--admin-text);
+}
+
+.admin-btn-secondary:hover {
+  background: #e5e7eb;
+}
+
+.admin-btn-danger {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.admin-btn-danger:hover {
+  background: #fee2e2;
+}
+
+@media (max-width: 900px) {
+  .admin-products-actions {
     flex-direction: column;
-    gap: 5px;
+    align-items: flex-start;
   }
 }

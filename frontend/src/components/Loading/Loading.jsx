@@ -3,7 +3,7 @@ import './Loading.css';
 
 const Loading = () => {
   return (
-    <div className="loading-wrapper">
+    <div className="loading-wrapper" role="status" aria-live="polite" aria-label="Loading">
       <div className="spinner">
         <div></div>
         <div></div>

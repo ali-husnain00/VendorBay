@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
-import {useNavigate} from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import "./AllProducts.css"
 import SearchBar from '../../components/SearchBar/SearchBar'
 import { context } from '../../components/Context/Context';
 import Loading from '../../components/Loading/Loading';
+import { Package } from 'lucide-react';
 
 const AllProducts = () => {
 
@@ -50,14 +51,15 @@ const AllProducts = () => {
   }
 
   return (
-    <div className='allproducts'>
+    <main className="allproducts" aria-label="All products">
       <SearchBar />
       <div className="prod-container">
+        {products.length > 0 ? (
         <div className="prod-cont">
           {
             products.map((prod) => (
               <div key={prod._id} className="product-card" onClick={() =>navigate(`/product/details/${prod._id}`)}>
-                <img src={`${BASE_URL}/uploads/${prod.image}`} className="product-image" loading='lazy' />
+                <img src={`${BASE_URL}/uploads/${prod.image}`} alt={prod.title} className="product-image" loading="lazy" />
                 <div className="product-info">
                   <h3>{prod.title.length > 30 ? prod.title.slice(0, 30) + "..." : prod.title}</h3>
                   <p className="price">Rs {prod.price}</p>
@@ -67,7 +69,16 @@ const AllProducts = () => {
             ))
           }
         </div>
+        ) : (
+          <div className="empty-products">
+            <Package className="empty-products-icon" size={48} aria-hidden />
+            <p className="empty-products-msg">No products found.</p>
+            <p className="empty-products-sub">Check back later or try a different search.</p>
+            <Link to="/" className="empty-products-cta">Back to home</Link>
+          </div>
+        )}
       </div>
+      {products.length > 0 && (
       <div className="pagination">
         <button
           disabled={page === 1}
@@ -83,8 +94,8 @@ const AllProducts = () => {
           Next
         </button>
       </div>
-
-    </div>
+      )}
+    </main>
   )
 }
 
