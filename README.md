@@ -79,5 +79,5 @@
 
 ### 👨‍💻 Developer
 - Ali Husnain
-- Portfolio Website: [https://alihusnaindev.netlify.app/](https://alihusnaindev.netlify.app/)
+- Portfolio: [https://alihusnaindev.netlify.app/](https://alihusnaindev.vercel.app/)
 - LinkedIn: [https://www.linkedin.com/in/ali-husnain00/](https://www.linkedin.com/in/ali-husnain00/)
